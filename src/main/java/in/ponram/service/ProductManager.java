@@ -10,6 +10,9 @@ public class ProductManager {
 
 	private static List<Product> stockDetails = new ArrayList<>();
 
+	private ProductManager() {
+		//Default constructor
+	}
 	/**
 	 * This method is used to add the product in the ArrayList
 	 * 
