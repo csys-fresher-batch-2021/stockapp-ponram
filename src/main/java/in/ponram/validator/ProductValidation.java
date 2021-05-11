@@ -6,6 +6,9 @@ import in.ponram.util.StringValidator;
 
 public class ProductValidation {
 
+	private ProductValidation() {
+		//Default constructor
+	}
 	/**
 	 * This method is used to check whether, 
 	 * The item id,brand name,item name and category should not to be null and empty string input

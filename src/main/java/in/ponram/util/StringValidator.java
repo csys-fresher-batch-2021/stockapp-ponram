@@ -2,6 +2,9 @@ package in.ponram.util;
 
 public class StringValidator {
 
+	private StringValidator() {
+		//Default constructor
+	}
 	/**
 	 * This method used to check string should not empty and null
 	 * @param value

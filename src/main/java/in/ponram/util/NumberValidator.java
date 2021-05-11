@@ -2,6 +2,9 @@ package in.ponram.util;
 
 public class NumberValidator {
 
+	private NumberValidator(){
+		//Default Constructor
+	}
 	/**
 	 * This method used to check quantity and rate should greater than zero
 	 * 

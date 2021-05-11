@@ -11,33 +11,25 @@ public class ProductManager {
 	private static List<Product> stockDetails = new ArrayList<>();
 
 	private ProductManager() {
-		//Default constructor
+		// Default constructor
 	}
+
 	/**
 	 * This method is used to add the product in the ArrayList
 	 * 
 	 * @param product
-	 * @return 
+	 * @return
 	 */
-	public static boolean addStock(Product... products) {
+	public static boolean addStock(Product product) {
 
 		boolean added = false;
-		for (Product product : products) {
-			{
-				if(ProductValidation.isValidProduct(product)) {
-				stockDetails.add(product);
-				added = true;
-				}
-				else {
-					System.err.println("Invalid Product Details");
-				}
-			}
-
+		if (ProductValidation.isValidProduct(product)) {
+			stockDetails.add(product);
+			added = true;
+		} else {
+			System.out.println("Invalid Product Details");
 		}
 		return added;
 	}
 
-
 }
-
-
