@@ -8,7 +8,7 @@ import in.ponram.validator.ProductValidation;
 
 public class ProductManager {
 
-	private static List<Product> stockDetails = new ArrayList<Product>();
+	private static List<Product> stockDetails = new ArrayList<>();
 
 	/**
 	 * This method is used to add the product in the ArrayList
@@ -21,13 +21,12 @@ public class ProductManager {
 		boolean added = false;
 		for (Product product : products) {
 			{
-				System.out.println(product);
 				if(ProductValidation.isValidProduct(product)) {
 				stockDetails.add(product);
 				added = true;
 				}
 				else {
-					System.out.println("Invalid Product Details");
+					System.err.println("Invalid Product Details");
 				}
 			}
 
