@@ -23,7 +23,7 @@
 		}
 		%>
 		
-		<form action="AddProductServelet">
+		<form action="AddProductServelet" method="post">
 			<label>Item id:</label> 
 			<input type="text" id="itemId" name="itemId"
 				placeholder="Enter item id" autofocus required /><br /> 
@@ -48,7 +48,7 @@
 			<label>Rate:</label>
 			<input type="number" id="rate" name="rate" min=1 max=100000 placeholder="Enter rate" required /><br />
 				
-			<button type="submit" class="btn btn-primary">Add</button>
+			<button type="submit" class="btn btn-primary">Add Product</button>
 		</form>
 	</main>
 </body>

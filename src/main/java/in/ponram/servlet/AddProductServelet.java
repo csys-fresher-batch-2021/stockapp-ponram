@@ -1,4 +1,4 @@
-package in.ponram.servelet;
+package in.ponram.servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -21,23 +21,43 @@ public class AddProductServelet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String itemId = request.getParameter("itemId");
 		String brandName = request.getParameter("brandName");
 		String itemName = request.getParameter("itemName");
 		String itemCategory = request.getParameter("itemCategory");
-		int rate = Integer.parseInt(request.getParameter("rate"));
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		
-		Product product1 = new Product(itemId, brandName, itemName, itemCategory, rate, quantity);
+		int prize = 0;
+		try {
+			
+			prize = Integer.parseInt(request.getParameter("rate"));
+		} catch (NumberFormatException e) {
+			
+			String errorMessage = "Invalid prize";
+			response.sendRedirect("add_product.jsp?errorMessage=" +errorMessage);
+		}
 		
+		int quantity = 0;
+		try {
+			
+			quantity = Integer.parseInt(request.getParameter("quantity"));
+		} catch (NumberFormatException e) {
+			
+			String errorMessage = "Invalid quantity";
+			response.sendRedirect("add_product.jsp?errorMessage=" + errorMessage);
+		}
+
+		Product product1 = new Product(itemId, brandName, itemName, itemCategory, prize, quantity);
+
 		boolean success = ProductManager.addStock(product1);
-		if(success){
+		if (success) {
+			
 			String infoMessage = "Product Added Successfully";
 			response.sendRedirect("add_product.jsp?infoMessage=" + infoMessage);
-		}
-		else{
-			String errorMessage="Invalid product";
+		} else {
+			
+			String errorMessage = "Invalid product";
 			response.sendRedirect("add_product.jsp?errorMessage=" + errorMessage);
 		}
 	}

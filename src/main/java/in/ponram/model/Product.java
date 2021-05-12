@@ -2,21 +2,21 @@ package in.ponram.model;
 
 public class Product {
 
-	public Product(String itemId, String brandName, String itemName, String itemCategory, int rate, int quantity) {
+	public Product(String itemId, String brandName, String itemName, String itemCategory, int prize, int quantity) {
 		this.itemId = itemId;
 		this.brandName = brandName;
 		this.itemName = itemName;
 		this.itemCategory = itemCategory;
-		this.rate = rate;
+		this.prize = prize;
 		this.quantity = quantity;
-		amount = rate * quantity;
+		amount = prize * quantity;
 	}
 
 	private String itemId;
 	private String brandName;
 	private String itemName;
 	private String itemCategory;
-	private int rate;
+	private int prize;
 	private int quantity;
 	private int amount;
 
@@ -36,8 +36,8 @@ public class Product {
 		return itemCategory;
 	}
 
-	public int getRate() {
-		return rate;
+	public int getPrize() {
+		return prize;
 	}
 
 	public int getQuantity() {
@@ -50,7 +50,7 @@ public class Product {
 
 	public String toString() {
 
-		return "" + itemId + " " + brandName + " " + itemName + " " + itemCategory + " " + rate + " " + quantity + " "
+		return "" + itemId + " " + brandName + " " + itemName + " " + itemCategory + " " + prize + " " + quantity + " "
 				+ amount;
 
 	}

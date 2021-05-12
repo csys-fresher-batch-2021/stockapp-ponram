@@ -7,9 +7,8 @@ import org.junit.Test;
 public class TestNumberValidator {
 
 	/**
-	 * Number validation
+	 * Test case for given number is less than 0
 	 */
-	// if given number is less than 0
 	@Test
 	public void testNumberIsLessThanZero() {
 
@@ -17,7 +16,9 @@ public class TestNumberValidator {
 		assertFalse(valid);
 	}
 
-	// if given number is equals to 0
+	/**
+	 * Test case for given number is equals to 0
+	 */
 	@Test
 	public void testNumberIsEqualToZero() {
 
@@ -25,7 +26,9 @@ public class TestNumberValidator {
 		assertFalse(valid);
 	}
 
-	// if given number is greater than 0
+	/**
+	 * Test case for given number is greater than 0
+	 */
 	@Test
 	public void testNumberIsGreaterThanZero() {
 

@@ -8,7 +8,7 @@ import in.ponram.validator.ProductValidation;
 
 public class ProductManager {
 
-	private static List<Product> stockDetails = new ArrayList<>();
+	private static final List<Product> stockDetails = new ArrayList<>();
 
 	private ProductManager() {
 		// Default constructor
