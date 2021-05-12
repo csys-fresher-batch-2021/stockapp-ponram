@@ -23,7 +23,7 @@
 		}
 		%>
 		
-		<form action="add_product-action.jsp" method="post">
+		<form action="AddProductServelet">
 			<label>Item id:</label> 
 			<input type="text" id="itemId" name="itemId"
 				placeholder="Enter item id" autofocus required /><br /> 

@@ -1,15 +1,27 @@
-<%@page import="in.ponram.service.ProductManager"%>
-<%@page import="in.ponram.model.Product"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-	<%
+package in.ponram.servelet;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import in.ponram.model.Product;
+import in.ponram.service.ProductManager;
+
+/**
+ * Servlet implementation class AddProductServelet
+ */
+@WebServlet("/AddProductServelet")
+public class AddProductServelet extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String itemId = request.getParameter("itemId");
 		String brandName = request.getParameter("brandName");
 		String itemName = request.getParameter("itemName");
@@ -28,6 +40,6 @@
 			String errorMessage="Invalid product";
 			response.sendRedirect("add_product.jsp?errorMessage=" + errorMessage);
 		}
-	%>
-</body>
-</html>
+	}
+
+}
