@@ -13,8 +13,8 @@ import in.ponram.service.ProductManager;
 /**
  * Servlet implementation class AddProductServelet
  */
-@WebServlet("/AddProductServelet")
-public class AddProductServelet extends HttpServlet {
+@WebServlet("/AddProductServlet")
+public class AddProductServlet extends HttpServlet {
 
 	/**
 	 * 
@@ -47,7 +47,6 @@ public class AddProductServelet extends HttpServlet {
 			String errorMessage = "Invalid quantity";
 			response.sendRedirect("add_product.jsp?errorMessage=" + errorMessage);
 		}
-
 		Product product1 = new Product(itemId, brandName, itemName, itemCategory, prize, quantity);
 
 		boolean success = ProductManager.addStock(product1);

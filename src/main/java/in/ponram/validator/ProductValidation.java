@@ -23,7 +23,7 @@ public class ProductValidation {
 				&& StringValidator.isValidString(product.getItemName())
 				&& StringValidator.isValidString(product.getItemCategory())
 				&& NumberValidator.isValidNumber(product.getQuantity())
-				&& NumberValidator.isValidNumber(product.getRate())) {
+				&& NumberValidator.isValidNumber(product.getPrize())) {
 			
 			valid = true;
 			
