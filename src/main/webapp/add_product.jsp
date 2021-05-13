@@ -21,7 +21,7 @@
 		if (errorMessage != null) {
 			out.println("<font color='red'>" + errorMessage + "</font>");
 		}
-		%>
+		%> 
 		
 		<form action="AddProductServlet" method="get">
 			<label>Item id:</label> 
