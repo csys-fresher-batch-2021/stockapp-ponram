@@ -19,4 +19,14 @@ public class NumberValidator {
 		}
 		return valid;
 	}
+	
+	
+	public static int parseInt(String input, String errorMessage) {
+		try {
+			return  Integer.parseInt(input);
+		}
+		catch(NumberFormatException e) {
+			throw new RuntimeException(errorMessage);
+		}
+	}
 }

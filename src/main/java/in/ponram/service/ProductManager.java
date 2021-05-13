@@ -24,12 +24,23 @@ public class ProductManager {
 
 		boolean added = false;
 		if (ProductValidation.isValidProduct(product)) {
+			
 			stockDetails.add(product);
 			added = true;
 		} else {
+			
 			System.out.println("Invalid Product Details");
 		}
 		return added;
 	}
 
+	/**
+	 * This method is used the get the product in another list
+	 * 
+	 * @return product ArrayList
+	 */
+	public static List<Product> getStock() {
+
+		return stockDetails;
+	}
 }
