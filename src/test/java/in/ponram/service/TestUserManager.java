@@ -35,7 +35,7 @@ public class TestUserManager {
 			UserManager.login("Raguram","Ponram@123");
 		} catch (Exception e) {
 			
-			assertEquals("User is not exist", e.getMessage());
+			assertEquals("User is not exists", e.getMessage());
 		}
 	}
 }
