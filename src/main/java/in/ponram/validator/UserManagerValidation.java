@@ -59,8 +59,7 @@ public class UserManagerValidation {
 
 		if (StringValidator.isValidString(userName)) {
 
-			StringValidator.isValidUsername(userName);
-			return true;
+			return StringValidator.isValidUsername(userName);
 		} else {
 			throw new RuntimeException("User name shouldn't empty");
 		}
@@ -75,8 +74,7 @@ public class UserManagerValidation {
 
 		if (StringValidator.isValidString(password)) {
 
-			StringValidator.isValidPassword(password);
-			return true;
+			return StringValidator.isValidPassword(password);
 		} else {
 			throw new RuntimeException("password shouldn't empty");
 		}

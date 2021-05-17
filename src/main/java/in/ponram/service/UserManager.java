@@ -14,14 +14,14 @@ public class UserManager {
 	 * @return true if the user exists
 	 * @throws Exception 
 	 */
-	public static boolean login(String userName, String password) throws Exception {
+	public static boolean login(String userName, String password) {
 		
 		if (UserManagerValidation.isValidLogin(userName, password)) {
 			
 			return true;
 		} else {
 			
-			throw new Exception("User is not exists");
+			throw new RuntimeException("User is not exists");
 		}
 	}
 	

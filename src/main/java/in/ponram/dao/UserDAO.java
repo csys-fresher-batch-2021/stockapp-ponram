@@ -7,8 +7,11 @@ import in.ponram.model.User;
 
 public class UserDAO {
 
-	private static final List<User> userList = new ArrayList<User>();
+	private static final List<User> userList = new ArrayList<>();
 	
+	private UserDAO() {
+		//Default constructor
+	}
 	static {
 		userList.add(new User("Ponram","Ponram@123"));
 		userList.add(new User("Siva","SiVa#123"));
