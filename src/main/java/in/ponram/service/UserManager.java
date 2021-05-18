@@ -1,5 +1,6 @@
 package in.ponram.service;
 
+import in.ponram.exception.UserDetailException;
 import in.ponram.validator.UserManagerValidation;
 
 public class UserManager {
@@ -21,7 +22,7 @@ public class UserManager {
 			return true;
 		} else {
 			
-			throw new RuntimeException("User is not exists");
+			throw new UserDetailException("User is not exists");
 		}
 	}
 	

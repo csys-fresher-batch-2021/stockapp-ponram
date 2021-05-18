@@ -3,6 +3,8 @@ package in.ponram.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import in.ponram.exception.UserDetailException;
+
 public class StringValidator {
 	
 	private StringValidator() {
@@ -36,7 +38,7 @@ public class StringValidator {
 		if (userName.length() >= 3 && userName.length() <= 10) {
 			valid = true;
 		} else {
-			throw new RuntimeException("Insufficient user name length(min 4 and max 10)");
+			throw new UserDetailException("Insufficient user name length(min 4 and max 10)");
 		}
 		return valid;
 	}
@@ -57,7 +59,7 @@ public class StringValidator {
 		if (m.matches()) {
 			return true;
 		} else {
-			throw new RuntimeException("Insufficient password characters");
+			throw new UserDetailException("Insufficient password characters");
 		}
 	}
 

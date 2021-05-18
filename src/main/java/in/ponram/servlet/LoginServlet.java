@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import in.ponram.exception.UserDetailException;
 import in.ponram.service.UserManager;
 
 /**
@@ -29,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("USER_NAME", userName);
 				response.sendRedirect("list_products.jsp");
 			}
-		} catch (Exception e) {
+		} catch (UserDetailException e) {
 
 			String errorMessage = e.getMessage();
 			response.sendRedirect("Login.jsp?errorMessage=" + errorMessage);

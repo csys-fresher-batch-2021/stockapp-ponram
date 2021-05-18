@@ -3,6 +3,7 @@ package in.ponram.validator;
 import java.util.List;
 
 import in.ponram.dao.UserDAO;
+import in.ponram.exception.UserDetailException;
 import in.ponram.model.User;
 import in.ponram.util.StringValidator;
 
@@ -61,7 +62,7 @@ public class UserManagerValidation {
 
 			return StringValidator.isValidUsername(userName);
 		} else {
-			throw new RuntimeException("User name shouldn't empty");
+			throw new UserDetailException("User name shouldn't empty");
 		}
 	}
 
@@ -76,7 +77,7 @@ public class UserManagerValidation {
 
 			return StringValidator.isValidPassword(password);
 		} else {
-			throw new RuntimeException("password shouldn't empty");
+			throw new UserDetailException("password shouldn't empty");
 		}
 	}
 }
