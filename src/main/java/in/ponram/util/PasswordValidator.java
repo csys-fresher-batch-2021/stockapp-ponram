@@ -7,6 +7,9 @@ import in.ponram.exception.UserDetailException;
 
 public class PasswordValidator {
 
+	private PasswordValidator() {
+		//Default constructor
+	}
 	/**
 	 * Validate the password would contain, minimum of 8 character maximum of 20
 	 * characters Small and capital Alphabets Some numerical Some special character

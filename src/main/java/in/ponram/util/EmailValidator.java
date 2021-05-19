@@ -7,6 +7,9 @@ import in.ponram.exception.UserDetailException;
 
 public class EmailValidator {
 
+	private EmailValidator() {
+		//Default constructor
+	}
 	/**
 	 * Email format should be, digits�0 to 9 lower case and upper letters � a to z
 	 * and A to Z Some special characters After @ symbol use domain name for email
