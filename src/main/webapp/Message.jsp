@@ -13,7 +13,7 @@
 		String infoMessage = request.getParameter("infoMessage");
 		if (infoMessage != null) {
 			%>
-			<div style="color:red"><%=infoMessage %></div>
+			<div style="color:green;"><%=infoMessage %></div>
 		<%}%> 
 
 	<% 

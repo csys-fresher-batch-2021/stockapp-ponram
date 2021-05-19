@@ -1,14 +1,13 @@
 package in.ponram.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import in.ponram.dao.ProductDAO;
+import in.ponram.exception.ProductException;
 import in.ponram.model.Product;
 import in.ponram.validator.ProductValidation;
 
 public class ProductManager {
-
-	private static final List<Product> stockDetails = new ArrayList<>();
 
 	private ProductManager() {
 		// Default constructor
@@ -18,29 +17,47 @@ public class ProductManager {
 	 * This method is used to add the product in the ArrayList
 	 * 
 	 * @param product
-	 * @return
+	 * @throws Exception
 	 */
-	public static boolean addStock(Product product) {
+	public static boolean addStock(Product... products) {
 
 		boolean added = false;
-		if (ProductValidation.isValidProduct(product)) {
-			
-			stockDetails.add(product);
-			added = true;
-		} else {
-			
-			System.out.println("Invalid Product Details");
+		for (Product product : products) {
+			if (ProductValidation.isValidProduct(product)) {
+				ProductDAO.addProduct(product);
+				added = true;
+			}
+			else {
+				System.out.println("Invalid Product Details");
+			}
 		}
 		return added;
 	}
 
 	/**
-	 * This method is used the get the product in another list
-	 * 
-	 * @return product ArrayList
+	 * This method is used to add the product in the ArrayList
+	 * @param itemName
+	 * @return
 	 */
-	public static List<Product> getStock() {
-
-		return stockDetails;
+	public static boolean deleteProduct(String itemName){
+		
+		Product deleteProduct = null;
+		boolean success = false;
+		
+		List<Product> getStock = ProductDAO.getStock();
+		for(Product product: getStock) {
+			if(product.getItemName().equalsIgnoreCase(itemName)) {
+				
+				deleteProduct = product;
+				ProductDAO.removeProduct(deleteProduct);
+				success = true;
+				break;
+			}
+			else {
+				throw new ProductException("Product not found");
+			}
+		}
+		
+		return success;
 	}
 }
