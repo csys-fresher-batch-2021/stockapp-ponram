@@ -7,21 +7,9 @@
 <title>Add Stock</title>
 </head>
 <body>
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="Message.jsp"></jsp:include>
 	<main class="container-fluid">
 		<h3>Add Product</h3>
-		
-		<%
-		String infoMessage = request.getParameter("infoMessage");
-		if (infoMessage != null) {
-			out.println("<font color='green'>" + infoMessage + "</font>");
-		}
-
-		String errorMessage = request.getParameter("errorMessage");
-		if (errorMessage != null) {
-			out.println("<font color='red'>" + errorMessage + "</font>");
-		}
-		%> 
 		
 		<form action="AddProductServlet" method="get">
 			<label>Item id:</label> 

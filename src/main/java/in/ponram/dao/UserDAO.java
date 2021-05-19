@@ -12,12 +12,21 @@ public class UserDAO {
 	private UserDAO() {
 		//Default constructor
 	}
-	static {
-		userList.add(new User("Ponram","Ponram@123"));
-		userList.add(new User("Siva","SiVa#123"));
+	/**
+	 * This method is used to add registered user in the list
+	 * @param user
+	 */
+	public static void addUser(User user) {
+		
+		userList.add(user);
 	}
 	
+	/**
+	 * This method is used to return total registered user list
+	 * @return list
+	 */
 	public static List<User> getAllUsers(){
+		
 		return userList;
 	}
 }

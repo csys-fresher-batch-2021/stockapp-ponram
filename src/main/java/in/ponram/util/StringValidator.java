@@ -1,12 +1,11 @@
 package in.ponram.util;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 import in.ponram.exception.UserDetailException;
 
 public class StringValidator {
-	
+
 	private StringValidator() {
 		//Default constructor
 	}
@@ -26,8 +25,7 @@ public class StringValidator {
 	}
 
 	/**
-	 * User name doesn't be empty To validate user name should contain minimum of 4
-	 * character and max 10 character
+	 * User name should contain minimum of 3 character and max 10 character
 	 * 
 	 * @param userName
 	 * @return
@@ -42,25 +40,37 @@ public class StringValidator {
 		}
 		return valid;
 	}
-
+	
 	/**
-	 * Validate the password would contain, minimum of 8 character maximum of 20
-	 * characters Small and capital Alphabets Some numerical Some special character
-	 * And no whitespace character should be accepted
-	 * 
-	 * @param password
-	 * @return boolean value
+	 * Address should contain minimum of 4 character and max 10 character
+	 * @param address
+	 * @return
 	 */
-	public static boolean isValidPassword(String password) {
-
-		String check = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%])(?=\\S+$).{8,20}$";
-		Pattern p = Pattern.compile(check);
-		Matcher m = p.matcher(password);
-		if (m.matches()) {
+	public static boolean isValidAddress(String address) {
+		
+		if (address.length() >= 4 && address.length() <= 20) {
 			return true;
 		} else {
-			throw new UserDetailException("Insufficient password characters");
+			throw new UserDetailException("Invalid Address format");
 		}
 	}
 
+	/**
+	 * Gender does't be empty Gender should be either male or female
+	 * 
+	 * @param gender
+	 * @return
+	 */
+	public static boolean isValidGender(String gender) {
+
+		boolean valid = false;
+		if (isValidString(gender)) {
+			if (gender.equalsIgnoreCase("male") || gender.equalsIgnoreCase("female")) {
+				valid = true;
+			}
+		} else {
+			throw new UserDetailException("Invalid gender type");
+		}
+		return valid;
+	}
 }

@@ -7,15 +7,9 @@
 <title>login</title>
 </head>
 <body>
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="Message.jsp"></jsp:include>
 	<main class="container-fluid">
 		<h3>Login</h3>
-		<%
-		String errorMessage = request.getParameter("errorMessage");
-		if (errorMessage != null) {
-		%>
-		<div style="color:red"><%=errorMessage %></div>
-		<%}%>
 		<form action="LoginServlet" method="post">
 			<label>Username:</label>
 			<input type="text" id="userName" name="userName" placeholder="Enter user name" autofocus required/><br/>
