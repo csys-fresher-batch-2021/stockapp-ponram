@@ -2,17 +2,15 @@ package in.ponram.service;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
-import in.ponram.dao.ProductDAO;
 import in.ponram.model.Product;
 
 public class TestProductManager {
 
-	@Before
-	public void setUp() throws Exception {
+	@BeforeClass
+	public static void setUp() throws Exception {
 
 		Product product1 = new Product("it01","Nokia","9s","Mobile",9000,10);
 		Product product2 = new Product("it02","Iphone", "SE2020","Mobile",40000,10);
@@ -20,10 +18,6 @@ public class TestProductManager {
 		ProductManager.addStock(product1, product2, product3);
 	}
 
-	@After
-	public void tearDown() throws Exception {
-		ProductDAO.stockList.clear();
-	}
 	@Test
 	public void testValidStock() {
 		
