@@ -1,3 +1,4 @@
+<%@page import="in.ponram.dao.ProductDAO"%>
 <%@page import="in.ponram.service.ProductManager"%>
 <%@page import="in.ponram.model.Product"%>
 <%@page import="java.util.List"%>
@@ -24,9 +25,9 @@
 					<th scope="col">Category</th>
 					<th scope="col">Rate</th>
 					<th scope="col">Quantity</th>
-					<th scope="col">Amount</th>
+					<th scope="col">Remove</th>
 					<%
-					List<Product> stocks=ProductManager.getStock();
+					List<Product> stocks=ProductDAO.getStock();
 					int i=0;
 					for(Product product:stocks){
 						i++;
@@ -37,9 +38,9 @@
 			     <td><%=product.getBrandName()%></td> 
 			     <td><%=product.getItemName()%></td> 
 			     <td><%=product.getItemCategory()%></td>
-			     <td><%=product.getPrize()%></td> 
+			     <td><%=product.getRate()%></td> 
 			     <td><%=product.getQuantity()%></td>  
-			     <td><%=product.getAmount()%></td> 
+			     <td><a href="RemoveProductServlet?itemName=<%= product.getItemName()%>" class="btn btn-danger">Remove</a></td>
     			 </tr>
 				 <% } %>
 			</thead>
