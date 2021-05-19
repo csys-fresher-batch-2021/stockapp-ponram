@@ -18,11 +18,13 @@ String user = (String)session.getAttribute("USER_NAME");
       <li class="nav-item active">
         <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
       </li>
+      <% if (user != null){ %>
       <li class="nav-item">
-        <a class="nav-link" href="add_product.jsp">Add product</a>
+        <a class="nav-link" href="AddProduct.jsp">Add product</a>
       </li>
+      <%} %>
       <li class="nav-item">
-        <a class="nav-link" href="list_products.jsp">List Product</a>
+        <a class="nav-link" href="ListProduct.jsp">List Product</a>
       </li>
     </ul>
      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
