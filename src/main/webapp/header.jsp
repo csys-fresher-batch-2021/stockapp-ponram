@@ -31,7 +31,7 @@ String user = (String)session.getAttribute("USER_NAME");
         <a class="nav-link" href="Login.jsp">Login</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Register</a>
+        <a class="nav-link" href="Register.jsp">Register</a>
       </li>
       <%} else { %>
          <li class="nav-item">

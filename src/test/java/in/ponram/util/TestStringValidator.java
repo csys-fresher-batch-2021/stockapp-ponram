@@ -79,108 +79,94 @@ public class TestStringValidator {
 		}
 	}
 
-	/**
-	 * Test case for password without number
-	 */
 	@Test
-	public void testPasswordWithoutNumber() {
+	public void testInvalidGender1() {
+
 		try {
 
-			StringValidator.isValidPassword("ABc@#def");
+			StringValidator.isValidGender("mela");
 		} catch (Exception e) {
 
-			assertEquals("Insufficient password characters", e.getMessage());
+			assertEquals("Invalid gender type", e.getMessage());
 		}
 	}
 
-	/**
-	 * Test case for password without special character
-	 */
 	@Test
-	public void testPasswordWithoutSpecialCharacter() {
+	public void testInvalidGender2() {
+		
 		try {
 
-			StringValidator.isValidPassword("ABc12def");
+			StringValidator.isValidGender("erf");
 		} catch (Exception e) {
 
-			assertEquals("Insufficient password characters", e.getMessage());
+			assertEquals("Invalid gender type", e.getMessage());
 		}
 	}
 
-	/**
-	 * Test case for password without small letter
-	 */
 	@Test
-	public void testPasswordWithoutSmallLetters() {
+	public void testValidGender1() {
+		
 		try {
 
-			StringValidator.isValidPassword("ABC@#123");
-		} catch (Exception e) {
-
-			assertEquals("Insufficient password characters", e.getMessage());
-		}
-	}
-
-	/**
-	 * Test case for password without capital letter
-	 */
-	@Test
-	public void testPasswordWithoutCapitalLetters() {
-		try {
-
-			StringValidator.isValidPassword("abc@#123");
-		} catch (Exception e) {
-
-			assertEquals("Insufficient password characters", e.getMessage());
-		}
-	}
-
-	/**
-	 * Test case for password length is less than eight
-	 */
-	@Test
-
-	public void testPasswordLengthIsLessThanEight() {
-		try {
-
-			StringValidator.isValidPassword("Abc@123");
-		} catch (Exception e) {
-
-			assertEquals("Insufficient password characters", e.getMessage());
-		}
-	}
-
-	/**
-	 * Test case for password length is grater than twenty
-	 */
-	@Test
-
-	public void testPasswordLengthIsGreaterThanTwenty() {
-		try {
-
-			StringValidator.isValidPassword("AbCdefh@123453#89xaVdQ");
-		} catch (Exception e) {
-
-			assertEquals("Insufficient password characters", e.getMessage());
-		}
-	}
-
-	/**
-	 * Test case for password with valid input
-	 */
-	@Test
-
-	public void testPasswordWithValidInput() {
-		boolean valid = false;
-		try {
-			
-			valid = StringValidator.isValidPassword("Abcd#@1234");
+			boolean valid = StringValidator.isValidGender("male");
 			assertTrue(valid);
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
+	}
+
+	@Test
+	public void testValidGender2() {
 		
+		try {
+
+			boolean valid = StringValidator.isValidGender("female");
+			assertTrue(valid);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	@Test
+	public void testWithAddresLengthIsLessThanFour() {
+
+		try {
+
+			StringValidator.isValidAddress("abc");
+		} catch (Exception e) {
+
+			assertEquals("Invalid Address format", e.getMessage());
+		}
+	}
+
+	@Test
+	public void testWithAddresLengthIsGreaterThanTwenty() {
+		
+		try {
+
+			StringValidator.isValidAddress("qwertyckjsdciudciwchiwuhckskcmsjdckjdscksdjcksjsjgdygus");
+		} catch (Exception e) {
+
+			assertEquals("Invalid Address format", e.getMessage());
+		}
+	}
+
+	@Test
+	public void testWithAddresLengthIsGreaterThanFourLessThanTen() {
+		
+		try {
+
+			boolean valid = StringValidator.isValidAddress("vijayaramapuram");
+			assertTrue(valid);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
 	}
 
 }
