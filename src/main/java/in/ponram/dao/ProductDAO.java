@@ -10,7 +10,7 @@ public class ProductDAO {
 	private ProductDAO() {
 		//Default constructor
 	}
-	public static List<Product> stockList = new ArrayList<Product>();
+	private static List<Product> stockList = new ArrayList<>();
 
 	/**
 	 * This method is used to add the product in the ArrayList
