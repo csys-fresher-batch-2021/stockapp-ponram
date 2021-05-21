@@ -11,17 +11,27 @@ public class TestStringValidator {
 	 */
 	@Test
 	public void testWithEmptyInput() {
-		boolean valid = StringValidator.isValidString("  ");
-		assertFalse(valid);
+		try {
+
+			StringValidator.isValidString(" ","Test case for empty string input");
+		} catch (Exception e) {
+
+			assertEquals("Test case for empty string input", e.getMessage());
+		}
 	}
 
 	/**
-	 * Test case for null
+	 * Test case for input is null
 	 */
 	@Test
 	public void testWithNullInput() {
-		boolean valid = StringValidator.isValidString(null);
-		assertFalse(valid);
+		try {
+
+			StringValidator.isValidString(null,"Test case for input is null");
+		} catch (Exception e) {
+
+			assertEquals("Test case for input is null", e.getMessage());
+		}
 
 	}
 
@@ -30,8 +40,14 @@ public class TestStringValidator {
 	 */
 	@Test
 	public void testWithValidInput() {
-		boolean valid =  StringValidator.isValidString("mobile");
-		assertTrue(valid);
+		try {
+
+			boolean valid = StringValidator.isValidString("mobile","No exception");
+			assertTrue(valid);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -55,7 +71,7 @@ public class TestStringValidator {
 	public void testWithUserNameGreaterThanTen() {
 		try {
 
-			StringValidator.isValidString("abcdefghijk");
+			StringValidator.isValidUsername("abcdefghijk");
 		} catch (Exception e) {
 
 			assertEquals("Insufficient user name length(min 4 and max 10)", e.getMessage());

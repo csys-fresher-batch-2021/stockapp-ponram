@@ -1,14 +1,13 @@
 package in.ponram.exception;
 
-public class ProductException extends RuntimeException {
-
+public class DAOException extends RuntimeException {
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ProductException(String message) {
-		
+	public DAOException(String message) {
 		super(message);
 	}
 }

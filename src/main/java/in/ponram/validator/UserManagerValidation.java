@@ -1,9 +1,8 @@
 package in.ponram.validator;
 
-import java.util.List;
 
 import in.ponram.dao.UserDAO;
-import in.ponram.exception.UserDetailException;
+import in.ponram.exception.ValidatorException;
 import in.ponram.model.User;
 import in.ponram.util.EmailValidator;
 import in.ponram.util.NumberValidator;
@@ -31,138 +30,177 @@ public class UserManagerValidation {
 		return success;
 	}
 	/**
-	 * This method is used to validate login user by,
-	 * Check user name and password should not empty
-	 * And check the user is exists 
+	 * This method is used to check user is Admin
+	 * 
+	 * @param userName
+	 * @param password
+	 * @param user
+	 * @return
+	 */
+	public static boolean isAdminUser(String userName, String password) {
+		boolean success = false;
+		if (rejectIfValueEmpty(userName, password)) {
+			User admin = UserDAO.searchUser(userName);
+			if (admin.getPassword().equals(password) && admin.getAdmin()) {
+
+				success = true;
+			}
+		}
+		return success;
+
+	}
+
+	/**
+	 * This method is used to validate login user by, Check user name and password
+	 * should not empty And check the user is exists
+	 * 
 	 * @param userName
 	 * @param password
 	 * @return
 	 */
 	public static boolean isValidLogin(String userName, String password) {
-		List<User> users = UserDAO.getAllUsers();
+
 		boolean success = false;
-		if (checkUserName(userName) && checkPassword(password)) {
-			for (User user : users) {
-				if(isUserExist(userName, password, user)) {
-					success = true;
-					break;
-				}
+		if (rejectIfValueEmpty(userName, password)) {
+			User user = UserDAO.searchUser(userName);
+			if (user.getPassword().equals(password)) {
+				success = true;
 			}
 		}
 		return success;
 	}
 
 	/**
-	 * This method is used to check user is exists
-	 * @param userName
+	 * This method is used check whether the user name and password is empty
+	 * 
+	 * @param name
 	 * @param password
-	 * @param user
-	 * @return
+	 * @return true
 	 */
-	public static boolean isUserExist(String userName, String password, User user) {
-		boolean exist = false;
+	public static boolean rejectIfValueEmpty(String name, String password) {
+		boolean isEmpty = false;
+		try {
+			boolean validName = StringValidator.isValidString(name, "User name shouldn't empty");
+			boolean validPassword = StringValidator.isValidString(password, "Password shouldn't empty");
 
-		if(user.getUserName().equals(userName) && user.getPassword().equals(password)) {
-			exist = true;
+			if (validName && validPassword) {
+				isEmpty = true;
+			}
+
+		} catch (Exception e) {
+			throw new ValidatorException(e.getMessage());
 		}
-		return exist;
+
+		return isEmpty;
 	}
-	
+
 	/**
-	 * This method is used to check user name doesn't be empty 
-	 * And validate user name
+	 * This method is used to check user name doesn't be empty And validate user
+	 * name
+	 * 
 	 * @param userName
 	 * @return
 	 */
 	public static boolean checkUserName(String userName) {
 
-		if (StringValidator.isValidString(userName)) {
+		boolean valid = false;
+		if (StringValidator.isValidString(userName, "User name shouldn't empty")) {
 
-			return StringValidator.isValidUsername(userName);
-		} else {
-			throw new UserDetailException("User name shouldn't empty");
+			valid = StringValidator.isValidUsername(userName);
 		}
+
+		return valid;
 	}
 
 	/**
-	 * This method is used to check address doesn't be empty 
-	 * And validate address
+	 * This method is used to check address doesn't be empty And validate address
+	 * 
 	 * @param address
 	 * @return
 	 */
 	public static boolean checkAddress(String address) {
 
-		if (StringValidator.isValidString(address)) {
+		boolean valid = false;
 
-			return StringValidator.isValidAddress(address);
-		} else {
-			throw new UserDetailException("Address shouldn't empty");
+		if (StringValidator.isValidString(address, "Address shouldn't empty")) {
+
+			valid = StringValidator.isValidAddress(address);
 		}
+
+		return valid;
+
 	}
-	
+
 	/**
-	 * This method is used to check gender doesn't be empty 
-	 * And validate gender
+	 * This method is used to check gender doesn't be empty And validate gender
+	 * 
 	 * @param gender
 	 * @return
 	 */
 	public static boolean checkGender(String gender) {
 
-		if (StringValidator.isValidString(gender)) {
+		boolean valid = false;
 
-			return StringValidator.isValidGender(gender);
+		if (StringValidator.isValidString(gender, "Gender shouldn't empty")) {
 
-		} else {
-			throw new UserDetailException("Gender shouldn't empty");
+			valid = StringValidator.isValidGender(gender);
+
 		}
+		return valid;
+
 	}
+
 	/**
-	 * This method is used to check mobile number doesn't be empty 
-	 * And validate mobile number
+	 * This method is used to check mobile number doesn't be empty And validate
+	 * mobile number
+	 * 
 	 * @param mobileNumber
 	 * @return
 	 */
 	public static boolean checkMobileNumber(long mobileNumber) {
 
+		boolean valid = false;
 		String value = Long.toString(mobileNumber);
-		if (StringValidator.isValidString(value)) {
 
-			return NumberValidator.isValidMobileNumber(value);
-		} else {
-			throw new UserDetailException("Mobile number shouldn't empty");
+		if (StringValidator.isValidString(value, "Mobile number shouldn't empty")) {
+
+			valid = NumberValidator.isValidMobileNumber(value);
 		}
 
+		return valid;
 	}
+
 	/**
-	 * This method is used to check email doesn't be empty 
-	 * And validate email
+	 * This method is used to check email doesn't be empty And validate email
+	 * 
 	 * @param email
 	 * @return
 	 */
 	public static boolean checkEmail(String email) {
 
-		if (StringValidator.isValidString(email)) {
+		boolean valid = false;
 
-			return EmailValidator.isValidEmail(email);
-		} else {
-			throw new UserDetailException("Email shouldn't empty");
+		if (StringValidator.isValidString(email, "Email shouldn't empty")) {
+
+			valid = EmailValidator.isValidEmail(email);
 		}
+		return valid;
 	}
-	
+
 	/**
-	 * This method is used to check Password doesn't be empty 
-	 * And validate Password
+	 * This method is used to check Password doesn't be empty And validate Password
+	 * 
 	 * @param password
 	 * @return
 	 */
 	public static boolean checkPassword(String password) {
 
-		if (StringValidator.isValidString(password)) {
+		boolean valid = false;
+		if (StringValidator.isValidString(password, "Password shouldn't empty")) {
 
-			return PasswordValidator.isValidPassword(password);
-		} else {
-			throw new UserDetailException("Password shouldn't empty");
+			valid = PasswordValidator.isValidPassword(password);
 		}
+		return valid;
 	}
 
 }

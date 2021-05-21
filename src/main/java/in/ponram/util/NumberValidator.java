@@ -3,8 +3,9 @@ package in.ponram.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import in.ponram.exception.ParseValueException;
-import in.ponram.exception.UserDetailException;
+import in.ponram.exception.DAOException;
+import in.ponram.exception.ServiceException;
+import in.ponram.exception.UtilException;
 
 public class NumberValidator {
 
@@ -17,13 +18,14 @@ public class NumberValidator {
 	 * @param value
 	 * @return true whether the value is greater then zero
 	 */
-	public static boolean isValidNumber(int value) {
+	public static boolean isValidNumber(int value,String message) {
 
-		boolean valid = false;
-		if (value > 0) {
-			valid = true;
+		if (value <= 0) {
+			throw new UtilException(message);
+		} else {
+
+			return true;
 		}
-		return valid;
 	}
 	
 	/**
@@ -37,7 +39,7 @@ public class NumberValidator {
 			return  Integer.parseInt(input);
 		}
 		catch(NumberFormatException e) {
-			throw new ParseValueException(errorMessage);
+			throw new DAOException(errorMessage);
 		}
 	}
 	
@@ -52,7 +54,7 @@ public class NumberValidator {
 			return  Long.parseLong(input);
 		}
 		catch(NumberFormatException e) {
-			throw new ParseValueException(errorMessage);
+			throw new DAOException(errorMessage);
 		}
 	}
 	
@@ -71,7 +73,7 @@ public class NumberValidator {
 
 			return true;
 		} else {
-			throw new UserDetailException("Mobile number format is invalid");
+			throw new ServiceException("Mobile number format is invalid");
 		}
 	}
 }

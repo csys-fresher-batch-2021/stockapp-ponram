@@ -7,6 +7,75 @@ import org.junit.Test;
 public class TestUserManagerValidation {
 
 	/**
+	 * Test case for user name is null password is not empty and not null
+	 */
+	@Test
+	public void testWhetherTheUserNameNullPasswordIsFilled() {
+		
+		try {
+			UserManagerValidation.rejectIfValueEmpty(null,"Password@12");
+		}
+		catch(Exception e) {
+			assertEquals("User name shouldn't empty", e.getMessage());
+		}
+	}
+	
+	/**
+	 * Test case for user name is null password is not empty and not null
+	 */
+	@Test
+	public void testWhetherTheUserNameEmptyPasswordIsFilled() {
+		try {
+			UserManagerValidation.rejectIfValueEmpty(" ","Password@12");
+		}
+		catch(Exception e) {
+			assertEquals("User name shouldn't empty", e.getMessage());
+		}
+	}
+	
+	/**
+	 * Test case for password is null user name is not empty and not null
+	 */
+	@Test
+	public void testWhetherThePasswordNullUserNameIsFilled() {
+		
+		try {
+			UserManagerValidation.rejectIfValueEmpty("Adbc",null);
+		}
+		catch(Exception e) {
+			assertEquals("Password shouldn't empty", e.getMessage());
+		}
+	}
+	
+	/**
+	 * Test case for password is null user name is not empty and not null
+	 */
+	@Test
+	public void testWhetherThePasswordEmptyUserNameIsFilled() {
+		try {
+			UserManagerValidation.rejectIfValueEmpty("abcd","  ");
+		}
+		catch(Exception e) {
+			assertEquals("Password shouldn't empty", e.getMessage());
+		}
+	}
+	
+	/**
+	 * Test case for user name is valid
+	 */
+	@Test
+	public void testIfBothUserNameAndPasswordIsFilled() {
+		boolean valid = false;
+		try {
+			valid = UserManagerValidation.rejectIfValueEmpty("abcde","Password@123");
+			assertTrue(valid);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * Test case for user name is null
 	 */
 	@Test

@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import in.ponram.exception.UserDetailException;
+import in.ponram.exception.DAOException;
+import in.ponram.exception.ValidatorException;
 import in.ponram.service.UserManager;
 
 /**
@@ -23,17 +24,24 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
+		String userType = request.getParameter("userType");
+		HttpSession session = request.getSession();
 		try {
-			boolean valid = UserManager.login(userName, password);
-			if (valid) {
-				HttpSession session = request.getSession();
-				session.setAttribute("USER_NAME", userName);
-				response.sendRedirect("list_products.jsp");
-			}
-		} catch (UserDetailException e) {
+			if (userType.equalsIgnoreCase("admin")) {
 
-			String errorMessage = e.getMessage();
-			response.sendRedirect("Login.jsp?errorMessage=" + errorMessage);
+				UserManager.adminLogin(userName, password);
+				session.setAttribute("USER_NAME", userName);
+				session.setAttribute("ROLE", "admin");
+			} else {
+				
+				UserManager.login(userName, password);
+				session.setAttribute("USER_NAME", userName);
+			}
+
+			response.sendRedirect("ListProduct.jsp");
+		} catch (ValidatorException | DAOException e) {
+
+			response.sendRedirect("Login.jsp?errorMessage=" + e.getMessage());
 		}
 	}
 

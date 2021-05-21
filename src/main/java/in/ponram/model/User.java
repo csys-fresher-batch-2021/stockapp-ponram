@@ -9,6 +9,17 @@ public class User {
 		this.gender = gender;
 		this.email = email;
 		this.password = password;
+		admin = false;
+	}
+	
+	public User(String userName, long mobileNumber, String address, String gender, Boolean admin, String email, String password) {
+		this.userName = userName;
+		this.mobileNumber = mobileNumber;
+		this.address = address;
+		this.gender = gender;
+		this.email = email;
+		this.password = password;
+		this.admin = admin;
 	}
 
 	private String userName;
@@ -17,6 +28,7 @@ public class User {
 	private String address;
 	private String email;
 	private String password;
+	private boolean admin;
 
 	public String getUserName() {
 		return userName;
@@ -37,4 +49,13 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
+	public boolean getAdmin() {
+		return admin;
+	}
+	@Override
+	public String toString() {
+		return "User [userName=" + userName + ", mobileNumber=" + mobileNumber + ", gender=" + gender + ", address="
+				+ address + ", email=" + email + ", password=" + password + ", admin=" + admin + "]";
+	}
+
 }

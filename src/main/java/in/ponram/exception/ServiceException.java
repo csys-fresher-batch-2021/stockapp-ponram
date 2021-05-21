@@ -1,13 +1,13 @@
 package in.ponram.exception;
 
-public class UserDetailException extends RuntimeException {
+public class ServiceException extends RuntimeException {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public UserDetailException(String message) {
+	public ServiceException(String message) {
 		super(message);
 	}
 }
