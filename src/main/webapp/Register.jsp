@@ -23,7 +23,7 @@
 			<label>Mobile number:</label>
 			<input type="number" id="mobileNumber" name="mobileNumber" pattern="[6-9][0-9]{9}" placeholder="Enter your mobile number" required/><br/>
 			<label>Email:</label>
-			<input type="email" id="email" name="email" pattern="" placeholder="Enter your email" required/><br/>
+			<input type="email" id="email" name="email" placeholder="Enter your email" required/><br/>
 			<label>Password:</label>
 			<input type="password" id="password" pattern=".{8,20}" name="password" placeholder="Enter your password" required/><br/>
 			<button type="submit" class="btn btn-primary">Submit</button>

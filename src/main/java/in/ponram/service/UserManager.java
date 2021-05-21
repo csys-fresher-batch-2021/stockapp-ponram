@@ -1,7 +1,7 @@
 package in.ponram.service;
 
 import in.ponram.dao.UserDAO;
-import in.ponram.exception.UserDetailException;
+import in.ponram.exception.ServiceException;
 import in.ponram.model.User;
 import in.ponram.validator.UserManagerValidation;
 
@@ -36,13 +36,30 @@ public class UserManager {
 	 * @throws Exception 
 	 */
 	public static boolean login(String userName, String password) {
-		
+
+		boolean exists = false;
 		if (UserManagerValidation.isValidLogin(userName, password)) {
-			
+
+			exists = true;
+		}
+		return exists;
+	}
+
+	/**
+	 * This method is used to call the call Admin login validation to verify the user is admin
+	 * @param userName
+	 * @param password
+	 * @return true if the user exists
+	 * @throws Exception
+	 */
+	public static boolean adminLogin(String userName,String password) {
+
+		if (UserManagerValidation.isAdminUser(userName, password)) {
+
 			return true;
 		} else {
-			
-			throw new UserDetailException("User is not exists");
+
+			throw new ServiceException("User is not an admin");
 		}
 	}
 	

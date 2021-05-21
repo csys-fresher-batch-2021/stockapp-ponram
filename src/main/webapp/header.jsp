@@ -4,6 +4,8 @@
 
 <%
 String user = (String)session.getAttribute("USER_NAME");
+String role = (String)session.getAttribute("ROLE");
+
 %>
 
 <header>
@@ -18,7 +20,7 @@ String user = (String)session.getAttribute("USER_NAME");
       <li class="nav-item active">
         <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
       </li>
-      <% if (user != null){ %>
+      <% if (user != null && role != null){ %>
       <li class="nav-item">
         <a class="nav-link" href="AddProduct.jsp">Add product</a>
       </li>

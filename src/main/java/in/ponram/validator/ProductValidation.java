@@ -18,12 +18,13 @@ public class ProductValidation {
 	 */
 	public static boolean isValidProduct(Product product) {
 		boolean valid = false;
-		if (StringValidator.isValidString(product.getItemId()) 
-				&& StringValidator.isValidString(product.getBrandName())
-				&& StringValidator.isValidString(product.getItemName())
-				&& StringValidator.isValidString(product.getItemCategory())
-				&& NumberValidator.isValidNumber(product.getQuantity())
-				&& NumberValidator.isValidNumber(product.getRate())) {
+		boolean itemId = StringValidator.isValidString(product.getItemId(),"Item id is empty") ;
+		boolean brandName = StringValidator.isValidString(product.getBrandName(),"Brand name is empty");
+		boolean itemName = StringValidator.isValidString(product.getItemName(),"Item name is empty");
+		boolean category = StringValidator.isValidString(product.getItemCategory(),"Item category is empty");
+		boolean quantity = NumberValidator.isValidNumber(product.getQuantity(),"Invalid quantity");
+		boolean rate = NumberValidator.isValidNumber(product.getRate(),"Invalid rate");
+		if (itemId && brandName && itemName && category && quantity && rate ) {
 			
 			valid = true;
 			

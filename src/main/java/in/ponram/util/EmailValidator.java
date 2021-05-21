@@ -3,7 +3,7 @@ package in.ponram.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import in.ponram.exception.UserDetailException;
+import in.ponram.exception.ServiceException;
 
 public class EmailValidator {
 
@@ -28,7 +28,7 @@ public class EmailValidator {
 		if (m.matches()) {
 			return true;
 		} else {
-			throw new UserDetailException("Invalid email format");
+			throw new ServiceException("Invalid email format");
 		}
 	}
 }

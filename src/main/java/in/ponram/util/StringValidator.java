@@ -2,7 +2,8 @@ package in.ponram.util;
 
 
 
-import in.ponram.exception.UserDetailException;
+import in.ponram.exception.UtilException;
+import in.ponram.exception.ValidatorException;
 
 public class StringValidator {
 
@@ -15,15 +16,16 @@ public class StringValidator {
 	 * @param value
 	 * @return
 	 */
-	public static boolean isValidString(String value) {
+	public static boolean isValidString(String value, String message) {
 
-		boolean valid = false;
-		if (value != null && !value.trim().equals("")) {
-			valid = true;
+		if (value == null || value.trim().equals("")) {
+			
+			throw new UtilException(message);
+		} else {
+
+			return true;
 		}
-		return valid;
 	}
-
 	/**
 	 * User name should contain minimum of 3 character and max 10 character
 	 * 
@@ -36,7 +38,7 @@ public class StringValidator {
 		if (userName.length() >= 3 && userName.length() <= 10) {
 			valid = true;
 		} else {
-			throw new UserDetailException("Insufficient user name length(min 4 and max 10)");
+			throw new ValidatorException("Insufficient user name length(min 4 and max 10)");
 		}
 		return valid;
 	}
@@ -51,7 +53,7 @@ public class StringValidator {
 		if (address.length() >= 4 && address.length() <= 20) {
 			return true;
 		} else {
-			throw new UserDetailException("Invalid Address format");
+			throw new ValidatorException("Invalid Address format");
 		}
 	}
 
@@ -64,12 +66,10 @@ public class StringValidator {
 	public static boolean isValidGender(String gender) {
 
 		boolean valid = false;
-		if (isValidString(gender)) {
-			if (gender.equalsIgnoreCase("male") || gender.equalsIgnoreCase("female")) {
-				valid = true;
-			}
+		if (gender.equalsIgnoreCase("male") || gender.equalsIgnoreCase("female")) {
+			valid = true;
 		} else {
-			throw new UserDetailException("Invalid gender type");
+			throw new UtilException("Invalid gender type");
 		}
 		return valid;
 	}

@@ -1,13 +1,14 @@
 package in.ponram.exception;
 
-public class ParseValueException extends RuntimeException {
-	
+public class UtilException extends RuntimeException {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ParseValueException(String message) {
+	public UtilException(String message) {
+		
 		super(message);
 	}
 }

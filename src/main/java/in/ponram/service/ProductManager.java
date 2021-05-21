@@ -3,7 +3,7 @@ package in.ponram.service;
 import java.util.List;
 
 import in.ponram.dao.ProductDAO;
-import in.ponram.exception.ProductException;
+import in.ponram.exception.UtilException;
 import in.ponram.model.Product;
 import in.ponram.validator.ProductValidation;
 
@@ -27,9 +27,7 @@ public class ProductManager {
 				ProductDAO.addProduct(product);
 				added = true;
 			}
-			else {
-				System.out.println("Invalid Product Details");
-			}
+
 		}
 		return added;
 	}
@@ -54,7 +52,7 @@ public class ProductManager {
 				break;
 			}
 			else {
-				throw new ProductException("Product not found");
+				throw new UtilException("Product not found");
 			}
 		}
 		

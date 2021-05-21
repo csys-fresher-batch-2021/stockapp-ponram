@@ -12,8 +12,13 @@ public class TestNumberValidator {
 	@Test
 	public void testNumberIsLessThanZero() {
 
-		boolean valid = NumberValidator.isValidNumber(-1);
-		assertFalse(valid);
+		try {
+
+			NumberValidator.isValidNumber(0,"number is not less than 0");
+		} catch (Exception e) {
+
+			assertEquals("number is not less than 0", e.getMessage());
+		}
 	}
 
 	/**
@@ -22,8 +27,13 @@ public class TestNumberValidator {
 	@Test
 	public void testNumberIsEqualToZero() {
 
-		boolean valid = NumberValidator.isValidNumber(0);
-		assertFalse(valid);
+		try {
+
+			NumberValidator.isValidNumber(0,"number is not equals to 0");
+		} catch (Exception e) {
+
+			assertEquals("number is not equals to 0", e.getMessage());
+		}
 	}
 
 	/**
@@ -32,8 +42,13 @@ public class TestNumberValidator {
 	@Test
 	public void testNumberIsGreaterThanZero() {
 
-		boolean valid = NumberValidator.isValidNumber(1);
-		assertTrue(valid);
+		try {
+			boolean valid = NumberValidator.isValidNumber(0,"no exception");
+
+			assertTrue(valid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**

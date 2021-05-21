@@ -50,7 +50,7 @@ public class AddProductServlet extends HttpServlet {
 			} else {
 
 				String errorMessage = "Invalid product";
-				response.sendRedirect("add_product.jsp?errorMessage=" + errorMessage);
+				response.sendRedirect("AddProduct.jsp?errorMessage=" + errorMessage);
 			}
 
 		}
@@ -58,7 +58,7 @@ public class AddProductServlet extends HttpServlet {
 		catch (Exception e) {
 
 			String errorMessage = e.getMessage();
-			response.sendRedirect("add_product.jsp?errorMessage=" + errorMessage);
+			response.sendRedirect("AddProduct.jsp?errorMessage=" + errorMessage);
 		}
 	}
 
