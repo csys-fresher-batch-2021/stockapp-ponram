@@ -12,17 +12,17 @@ import in.ponram.service.ProductManager;
 /**
  * Servlet implementation class RemoveProductServlet
  */
-@WebServlet("/RemoveProductServlet.java")
+@WebServlet("/RemoveProductServlet")
 public class RemoveProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		ProductManager product = new ProductManager();
 		String name = request.getParameter("itemName");
 		try {
 			
-			boolean success = ProductManager.deleteProduct(name);
+			boolean success = product.deleteProduct(name);
 			if(success) {
 				String infoMessage = "Product Removed";
 				response.sendRedirect("ListProduct.jsp?infoMessage=" + infoMessage);
@@ -31,7 +31,7 @@ public class RemoveProductServlet extends HttpServlet {
 		catch (Exception e) {
 
 			String errorMessage = e.getMessage();
-			response.sendRedirect("ListProduct.jsp?errorMessage=" + errorMessage);
+			response.sendRedirect("AddProduct.jsp?errorMessage=" + errorMessage);
 		}
 	}
 

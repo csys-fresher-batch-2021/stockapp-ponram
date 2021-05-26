@@ -12,7 +12,7 @@ public class User {
 		admin = false;
 	}
 	
-	public User(String userName, long mobileNumber, String address, String gender, Boolean admin, String email, String password) {
+	public User(String userName, long mobileNumber, String address, String gender, boolean admin, String email, String password) {
 		this.userName = userName;
 		this.mobileNumber = mobileNumber;
 		this.address = address;
@@ -22,7 +22,39 @@ public class User {
 		this.admin = admin;
 	}
 
+	public User() {
+		//Default constructor
+	}
+
 	private String userName;
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public void setMobileNumber(long mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
 	private long mobileNumber;
 	private String gender;
 	private String address;

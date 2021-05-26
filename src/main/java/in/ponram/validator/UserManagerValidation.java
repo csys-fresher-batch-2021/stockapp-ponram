@@ -1,7 +1,6 @@
 package in.ponram.validator;
 
 
-import in.ponram.dao.UserDAO;
 import in.ponram.exception.ValidatorException;
 import in.ponram.model.User;
 import in.ponram.util.EmailValidator;
@@ -37,10 +36,9 @@ public class UserManagerValidation {
 	 * @param user
 	 * @return
 	 */
-	public static boolean isAdminUser(String userName, String password) {
+	public static boolean isAdminUser(User admin, String password) {
 		boolean success = false;
-		if (rejectIfValueEmpty(userName, password)) {
-			User admin = UserDAO.searchUser(userName);
+		if (rejectIfValueEmpty(admin.getUserName(), admin.getPassword())) {
 			if (admin.getPassword().equals(password) && admin.getAdmin()) {
 
 				success = true;
@@ -58,11 +56,10 @@ public class UserManagerValidation {
 	 * @param password
 	 * @return
 	 */
-	public static boolean isValidLogin(String userName, String password) {
+	public static boolean isValidLogin(User user, String password) {
 
 		boolean success = false;
-		if (rejectIfValueEmpty(userName, password)) {
-			User user = UserDAO.searchUser(userName);
+		if (rejectIfValueEmpty(user.getUserName(), user.getPassword())) {
 			if (user.getPassword().equals(password)) {
 				success = true;
 			}

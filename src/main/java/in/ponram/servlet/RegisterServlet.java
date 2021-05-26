@@ -32,7 +32,8 @@ public class RegisterServlet extends HttpServlet {
 			long mobileNumber = NumberValidator.parseLong(mblNmbr, "Invalid Mobile number");
 			
 			User user = new User(userName,mobileNumber,address,gender,email,password);
-			boolean success = UserManager.registration(user);
+			UserManager register = new UserManager();
+			boolean success = register.registration(user);
 			if (success) {
 
 				response.sendRedirect("Login.jsp");

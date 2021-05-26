@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import in.ponram.exception.DAOException;
+import in.ponram.exception.DBException;
 import in.ponram.exception.ValidatorException;
 import in.ponram.service.UserManager;
 
@@ -25,21 +25,22 @@ public class LoginServlet extends HttpServlet {
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
 		String userType = request.getParameter("userType");
+		UserManager login  =new UserManager();
 		HttpSession session = request.getSession();
 		try {
 			if (userType.equalsIgnoreCase("admin")) {
 
-				UserManager.adminLogin(userName, password);
+				login.adminLogin(userName, password);
 				session.setAttribute("USER_NAME", userName);
 				session.setAttribute("ROLE", "admin");
 			} else {
 				
-				UserManager.login(userName, password);
+				login.login(userName, password);
 				session.setAttribute("USER_NAME", userName);
 			}
 
 			response.sendRedirect("ListProduct.jsp");
-		} catch (ValidatorException | DAOException e) {
+		} catch (ValidatorException | DBException e) {
 
 			response.sendRedirect("Login.jsp?errorMessage=" + e.getMessage());
 		}
