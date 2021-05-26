@@ -3,7 +3,7 @@ package in.ponram.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import in.ponram.exception.DAOException;
+import in.ponram.exception.DBException;
 import in.ponram.exception.ServiceException;
 import in.ponram.exception.UtilException;
 
@@ -39,7 +39,7 @@ public class NumberValidator {
 			return  Integer.parseInt(input);
 		}
 		catch(NumberFormatException e) {
-			throw new DAOException(errorMessage);
+			throw new DBException(errorMessage);
 		}
 	}
 	
@@ -54,7 +54,7 @@ public class NumberValidator {
 			return  Long.parseLong(input);
 		}
 		catch(NumberFormatException e) {
-			throw new DAOException(errorMessage);
+			throw new DBException(errorMessage);
 		}
 	}
 	

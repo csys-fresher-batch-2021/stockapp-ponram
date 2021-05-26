@@ -7,21 +7,19 @@ import in.ponram.validator.UserManagerValidation;
 
 public class UserManager {
 	
-	private UserManager() {
-		//Default constructor
-	}
+	UserDAO userDao = new UserDAO();
 	/**
 	 * This method is used to call user validation class
 	 * Then the validation is success call addUser method to store the details 
 	 * @param user
 	 * @return true or false
 	 */
-	public static boolean registration(User... users) {
+	public boolean registration(User... users) {
 		
 		boolean success = false;
 		for (User user : users) {
 			if (UserManagerValidation.isValideUserDetails(user)) {
-				UserDAO.addUser(user);
+				userDao.save(user);
 				success = true;
 			}
 		}
@@ -35,14 +33,16 @@ public class UserManager {
 	 * @return true if the user exists
 	 * @throws Exception 
 	 */
-	public static boolean login(String userName, String password) {
+	public boolean login(String userName, String password) {
 
-		boolean exists = false;
-		if (UserManagerValidation.isValidLogin(userName, password)) {
+		User admin = userDao.findUser(userName);
+		if (UserManagerValidation.isValidLogin(admin,password)) {
 
-			exists = true;
+			return true;
+		} else {
+
+			throw new ServiceException("Invalid user");
 		}
-		return exists;
 	}
 
 	/**
@@ -52,14 +52,15 @@ public class UserManager {
 	 * @return true if the user exists
 	 * @throws Exception
 	 */
-	public static boolean adminLogin(String userName,String password) {
+	public boolean adminLogin(String userName,String password) {
 
-		if (UserManagerValidation.isAdminUser(userName, password)) {
+		User admin = userDao.findUser(userName);
+		if (UserManagerValidation.isAdminUser(admin,password)) {
 
 			return true;
 		} else {
 
-			throw new ServiceException("User is not an admin");
+			throw new ServiceException("Invalid user");
 		}
 	}
 	

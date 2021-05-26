@@ -12,24 +12,20 @@
 		<h3>Add Product</h3>
 		
 		<form action="AddProductServlet" method="get">
-			<label>Item id:</label> 
-			<input type="text" id="itemId" name="itemId"
-				placeholder="Enter item id" autofocus required /><br /> 
-				
 			<label>Brand Name:</label> 
 			<input type="text" id="brandName" name="brandName" 
 			placeholder="Enter brand name" required /><br /> 
 				
-			<label>Item Name:</label>
+			<label>Product Name:</label>
 			<input type="text" id="itemName" name="itemName" 
 			placeholder="Enter item name" required /><br /> 
 				
-			<label>Item category:</label> 
+			<label>Category:</label> 
 			<select id="itemCategory" name="itemCategory" required>
-					<option selected disabled value="">--Select Item category--</option>
+					<option selected disabled value="">--Select Product category--</option>
 					<option value="Mobile">Mobile</option>
 					<option value="Laptop">Laptop</option>
-					<option value="Headset">Headset</option>
+					<option value="Headset">Headphone</option>
 			</select><br />
 			
 			<label>Quantity:</label>

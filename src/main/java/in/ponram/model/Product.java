@@ -1,39 +1,56 @@
 package in.ponram.model;
 
+import java.time.LocalDate;
+
+
 public class Product {
 
-	public Product(String itemId, String brandName, String itemName, String itemCategory, int rate, int quantity) {
-		this.itemId = itemId;
+	public Product(String brandName, String productName, String productCategory, int rate, int quantity) {
 		this.brandName = brandName;
-		this.itemName = itemName;
-		this.itemCategory = itemCategory;
+		this.productName = productName;
+		this.productCategory = productCategory;
+		arrivalDate = LocalDate.now();
 		this.rate = rate;
 		this.quantity = quantity;
-		amount = rate * quantity;
 	}
 
-	private String itemId;
+	private int productId;
+	public Product(int productId, String brandName, String productName, String productCategory, LocalDate arrivalDate,
+			int quantity,int rate) {
+		this.productId = productId;
+		this.brandName = brandName;
+		this.productName = productName;
+		this.productCategory = productCategory;
+		this.arrivalDate = arrivalDate;
+		this.rate = rate;
+		this.quantity = quantity;
+	}
+
 	private String brandName;
-	private String itemName;
-	private String itemCategory;
+	private String productName;
+	private String productCategory;
+	private LocalDate arrivalDate;
 	private int rate;
 	private int quantity;
-	private int amount = rate * quantity;
 
-	public String getItemId() {
-		return itemId;
+	public int getProductId() {
+		return productId;
 	}
 
 	public String getBrandName() {
 		return brandName;
 	}
 
-	public String getItemName() {
-		return itemName;
+	public String getProductName() {
+		return productName;
 	}
 
-	public String getItemCategory() {
-		return itemCategory;
+	public String getProductCategory() {
+		return productCategory;
+	}
+	
+	public LocalDate getArrivalDate() {
+		return arrivalDate;
 	}
 
 	public int getRate() {
@@ -44,14 +61,11 @@ public class Product {
 		return quantity;
 	}
 
-	public int getAmount() {
-		return amount;
-	}
 
 	@Override
 	public String toString() {
-		return "Product [itemId=" + itemId + ", brandName=" + brandName + ", itemName=" + itemName + ", itemCategory="
-				+ itemCategory + ", rate=" + rate + ", quantity=" + quantity + ", amount=" + amount + "]";
+		return "Product [product Id=" + productId + ", brandName=" + brandName + ", Product Name=" + productName + ", Product Category="
+				+ productCategory + ", arrivalDate=" + arrivalDate + ", rate=" + rate + ", quantity=" + quantity + "]";
 	}
 
 }

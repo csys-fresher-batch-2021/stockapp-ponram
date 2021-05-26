@@ -1,17 +1,15 @@
 package in.ponram.service;
 
-import java.util.List;
+import java.sql.SQLException;
 
 import in.ponram.dao.ProductDAO;
-import in.ponram.exception.UtilException;
 import in.ponram.model.Product;
+import in.ponram.util.StringValidator;
 import in.ponram.validator.ProductValidation;
 
 public class ProductManager {
 
-	private ProductManager() {
-		// Default constructor
-	}
+	private final ProductDAO productDao = new ProductDAO();
 
 	/**
 	 * This method is used to add the product in the ArrayList
@@ -19,43 +17,34 @@ public class ProductManager {
 	 * @param product
 	 * @throws Exception
 	 */
-	public static boolean addStock(Product... products) {
+	public boolean addStock(Product product) {
 
 		boolean added = false;
-		for (Product product : products) {
-			if (ProductValidation.isValidProduct(product)) {
-				ProductDAO.addProduct(product);
-				added = true;
+		if (ProductValidation.isValidProduct(product)) {
+			try {
+				productDao.save(product);
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-
+			added = true;
 		}
 		return added;
 	}
 
 	/**
 	 * This method is used to add the product in the ArrayList
+	 * 
 	 * @param itemName
 	 * @return
 	 */
-	public static boolean deleteProduct(String itemName){
-		
-		Product deleteProduct = null;
+	public boolean deleteProduct(String productName) {
+
 		boolean success = false;
-		
-		List<Product> getStock = ProductDAO.getStock();
-		for(Product product: getStock) {
-			if(product.getItemName().equalsIgnoreCase(itemName)) {
-				
-				deleteProduct = product;
-				ProductDAO.removeProduct(deleteProduct);
-				success = true;
-				break;
-			}
-			else {
-				throw new UtilException("Product not found");
-			}
+
+		if (StringValidator.isValidString(productName, "Product name shouldn't be empty")) {
+			productDao.delete(productName);
+			success = true;
 		}
-		
 		return success;
 	}
 }
