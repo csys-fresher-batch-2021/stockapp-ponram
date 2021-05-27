@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import in.ponram.exception.DBException;
-import in.ponram.exception.ValidatorException;
 import in.ponram.service.UserManager;
 
 /**
@@ -40,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 			}
 
 			response.sendRedirect("ListProduct.jsp");
-		} catch (ValidatorException | DBException e) {
+		} catch (Exception e) {
 
 			response.sendRedirect("Login.jsp?errorMessage=" + e.getMessage());
 		}

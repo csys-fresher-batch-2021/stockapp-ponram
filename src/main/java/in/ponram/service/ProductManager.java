@@ -1,6 +1,5 @@
 package in.ponram.service;
 
-import java.sql.SQLException;
 
 import in.ponram.dao.ProductDAO;
 import in.ponram.model.Product;
@@ -21,11 +20,8 @@ public class ProductManager {
 
 		boolean added = false;
 		if (ProductValidation.isValidProduct(product)) {
-			try {
 				productDao.save(product);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+
 			added = true;
 		}
 		return added;
@@ -47,4 +43,5 @@ public class ProductManager {
 		}
 		return success;
 	}
+
 }

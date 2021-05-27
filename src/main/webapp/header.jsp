@@ -42,7 +42,7 @@ String role = (String)session.getAttribute("ROLE");
         <a class="nav-link" href="#">Welcome <%=user %></a>
       </li>
         <li class="nav-item">
-        <a class="nav-link" href="LogoutServlet">Logout</a>
+        <a class="nav-link" href="LogoutServlet" onClick="logout()">Logout</a>
       </li>
       <%} %>
       </ul>
@@ -50,3 +50,14 @@ String role = (String)session.getAttribute("ROLE");
   </div>
 </nav>
 </header>
+
+<script>
+let userRole = '<%=role%>';
+if(userRole !='null'){
+	localStorage.setItem("USER_ROLE", userRole);
+}
+
+function logout(){
+	localStorage.clear();
+}
+</script>
