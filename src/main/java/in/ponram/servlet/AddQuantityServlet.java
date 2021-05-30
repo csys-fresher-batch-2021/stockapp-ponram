@@ -39,7 +39,6 @@ public class AddQuantityServlet extends HttpServlet {
 			
 		} catch (Exception e) {
 			
-			e.printStackTrace();
 			object.addProperty("errorMessage", e.getMessage());
 		}
 	}
