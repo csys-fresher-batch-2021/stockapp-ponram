@@ -15,6 +15,7 @@
 <%
 String role = (String)session.getAttribute("ROLE");
 %>
+	<div id="message" style="color:green;"></div>
 	<jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
 	<h3>List of stock</h3>
@@ -32,6 +33,7 @@ String role = (String)session.getAttribute("ROLE");
 					<th scope="col">Rate</th>
 					<th scope="col">Quantity</th>
 					<% if(role != null){ %>
+					<th scope="col">Add Quantity</th>
 					<th scope="col">Remove</th>
 					<%} %>
 				</tr>
@@ -39,65 +41,8 @@ String role = (String)session.getAttribute("ROLE");
 			<tbody id="listProduct-tbl">
 			</tbody>
 		</table>
-		<script>
-		function filter_brand() {
-			  var input, filter, table, row, data, i, txtValue;
-			  input = document.getElementById("filter");
-			  filter = input.value.toUpperCase();
-			  table = document.getElementById("list");
-			  row = table.getElementsByTagName("tr");
-			  for (i = 0; i < row.length; i++) {
-				data = row[i].getElementsByTagName("td")[1];
-			    if (data) {
-			      txtValue = data.textContent || data.innerText;
-			      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-			    	  row[i].style.display = "";
-			      } else {
-			    	  row[i].style.display = "none";
-			      }
-			    }       
-			  }
-			}
-	  function getAllProducts(){
-		  
-		let role = localStorage.getItem("USER_ROLE");
-		  console.log(role);
-	console.log("Fetching all tasks ");
-	let url = "ListProductServlet";
-	//"  naresh ".trim().length() => method chaining
-	fetch(url).then(res=> res.json()).then(res=>{
-		let tasks = res;
-		console.log(tasks);
-		let content = "";
-		for(let task of tasks){
-			content += "<tr>"+
-			"<td>" + task.productId+ "</td>"+
-			"<td>" + task.brandName + "</td>"+
-			"<td>" + task.productName+"</td>"+
-			"<td>" + task.productCategory+"</td>"+
-			"<td>" + task.arrivalDate+"</td>"+
-			"<td>" + task.rate+"</td>"+
-			"<td>" + task.quantity+"</td>";
-			if(role != null){
-				let value = role.toLowerCase().localeCompare('admin');
-				if(value >= 0){
-				    content+= "<td><a href='RemoveProductServlet?itemName=" +task.productName+"' class='btn btn-danger'>Remove</a></td>";
-				}
-			}
-			
-			
-			content +="</tr>";
-			
-		}
-		console.log(content);
-		
-		document.querySelector("#listProduct-tbl").innerHTML= content;
-		
-	})
-	
-}
-getAllProducts();
-</script>
-	</main>
+		<script src="js/list-product.js"></script>
+		</main>
 </body>
 </html>
+
