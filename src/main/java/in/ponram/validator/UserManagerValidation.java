@@ -38,11 +38,11 @@ public class UserManagerValidation {
 	 */
 	public static boolean isAdminUser(User admin, String password) {
 		boolean success = false;
-		if (rejectIfValueEmpty(admin.getUserName(), admin.getPassword())) {
-			if (admin.getPassword().equals(password) && admin.getAdmin()) {
-
-				success = true;
-			}
+		boolean isNotEmpty = rejectIfValueEmpty(admin.getUserName(), admin.getPassword());
+		boolean isValidAdmin = admin.getPassword().equals(password) && admin.getAdmin();
+		if ( isNotEmpty && isValidAdmin) {
+			
+			success = true;
 		}
 		return success;
 
@@ -59,10 +59,11 @@ public class UserManagerValidation {
 	public static boolean isValidLogin(User user, String password) {
 
 		boolean success = false;
-		if (rejectIfValueEmpty(user.getUserName(), user.getPassword())) {
-			if (user.getPassword().equals(password)) {
-				success = true;
-			}
+		boolean isNotEmpty = rejectIfValueEmpty(user.getUserName(), user.getPassword());
+		boolean isValidUser = user.getPassword().equals(password);
+		if ( isNotEmpty && isValidUser) {
+			
+			success = true;
 		}
 		return success;
 	}

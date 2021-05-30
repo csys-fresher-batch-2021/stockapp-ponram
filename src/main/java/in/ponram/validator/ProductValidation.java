@@ -35,6 +35,11 @@ public class ProductValidation {
 		return valid;
 	}
 
+	/**
+	 * This method is used to validate brand name is valid string
+	 * @param value
+	 * @return true or false
+	 */
 	public static boolean checkBrandName(String value) {
 
 		boolean valid = false;
@@ -43,6 +48,24 @@ public class ProductValidation {
 			valid = true;
 		}
 
+		return valid;
+	}
+
+	/**
+	 * This method is used to validate id is an valid integer
+	 * This method is used to validate quantity is an valid integer
+	 * @param value
+	 * @return true or false
+	 */
+	public static boolean valid(int id, int quantity) {
+
+		boolean isValidQuantity = NumberValidator.isValidNumber(quantity, "Invalid quantity");
+		boolean isValidId = NumberValidator.isValidNumber(id, "Invalid product id");
+		boolean valid = false;
+		if (isValidQuantity && isValidId) {
+
+			valid = true;
+		}
 		return valid;
 	}
 }

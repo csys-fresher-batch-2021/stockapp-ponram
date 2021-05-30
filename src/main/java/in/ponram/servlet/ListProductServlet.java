@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import in.ponram.dao.ProductDAO;
 import in.ponram.model.Product;
+import in.ponram.service.ProductManager;
 import in.ponram.util.LocalDateAdapter;
 
 /**
@@ -27,8 +27,8 @@ public class ListProductServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ProductDAO listProduct = new ProductDAO();
-		List<Product> list = listProduct.findAll();
+		ProductManager listProduct = new ProductManager();
+		List<Product> list = listProduct.getAllStock();
 		Gson gson = new GsonBuilder().setPrettyPrinting()
 		        .registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 		String json = gson.toJson(list);

@@ -103,7 +103,7 @@ public class ProductDAO {
 	/**
 	 * This method is used to remove the product from the database
 	 */
-	public void delete(String product) {
+	public void remove(String product) {
 		
 		String sql = "UPDATE stock SET active = false WHERE product_name = ?;";
 		try {
@@ -115,6 +115,31 @@ public class ProductDAO {
 		} catch (SQLException e) {
 
 			throw new DBException("Product can't be deleted");
+		} finally {
+
+			ConnectionUtil.closeConnection(rs,pst, connection);
+		}
+	}
+	
+	/**
+	 * This method is used to update product quantity by using product id from database
+	 * @param brand
+	 * @return
+	 */
+	public void updateQuantity(int id, int quantity) {
+		
+		String sql = "update stock set initial_quantity = initial_quantity + ?, available_quantity = available_quantity + ? where product_id = ?";
+		try {
+			
+			connection = ConnectionUtil.createConnection();
+			pst = connection.prepareStatement(sql);
+			pst.setInt(1, quantity);
+			pst.setInt(2, quantity);
+			pst.setInt(3, id);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+
+			throw new DBException("Quantity can't be updated");
 		} finally {
 
 			ConnectionUtil.closeConnection(rs,pst, connection);
