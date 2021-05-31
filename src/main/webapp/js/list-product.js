@@ -35,7 +35,7 @@ function show(a) {
  *This method use the used display the message for success or error message
  */
 function send(id) {
-	let qty = document.getElementById('quantity').value;
+	let qty = document.getElementById("quantity"+id).value;
 	if(qty.trim()===""){
 		
 		toastr.error("Input is empty");
@@ -75,16 +75,23 @@ function getAllProducts() {
 				"<td>" + product.rate + "</td>" +
 				"<td>" + product.quantity + "</td>";
 			if (role != null) {
-				let value = role.toLowerCase().localeCompare('admin');
-				if (value > -1) {
+				if (role.toLowerCase().localeCompare('admin') == 0) {
 					content += "<td>" +
 						"<a class='btn btn-success' onclick='show(" + product.productId + ")'>Add</a>" +
 						"<div id='show-" + product.productId + "' style='display:none'>" +
-						"<input type='number' id='quantity' placeholder='Enter qunatity'/>" +
+						"<input type='number' id='quantity" + product.productId + "' placeholder='Enter qunatity'/>" +
 						"<a id='check' onclick='send(" + product.productId + ")' class='btn btn-success'>Add</a>" +
 						"</div>" +
 						"</td>" +
 						"<td><a href='RemoveProductServlet?itemName=" + product.productName + "' class='btn btn-danger'>Remove</a></td>";
+				}
+				if(role.toLowerCase().localeCompare('user') == 0){
+					content += "<td>" +
+						"<input type='checkbox' id='book" + product.productId + "'/>" +
+						"<div id='show-" + product.productId + "' style='display:none'>" +
+						"<input type='number' id='quantity" + product.productId + "' placeholder='Enter qunatity'/>" +
+						"</div>" +
+						"</td>";
 				}
 			}
 
