@@ -35,8 +35,9 @@ public class RegisterServlet extends HttpServlet {
 			UserManager register = new UserManager();
 			boolean success = register.registration(user);
 			if (success) {
-
-				response.sendRedirect("Login.jsp");
+				
+				String infoMessage = "Register Success";
+				response.sendRedirect("Login.jsp?infoMessage=" + infoMessage);
 			} else {
 
 				String errorMessage = "Register failed";

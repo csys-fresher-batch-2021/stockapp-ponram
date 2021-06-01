@@ -35,6 +35,7 @@ public class LoginServlet extends HttpServlet {
 				
 				login.login(userName, password);
 				session.setAttribute("USER_NAME", userName);
+				session.setAttribute("ROLE", "user");
 			}
 
 			response.sendRedirect("ListProduct.jsp");
