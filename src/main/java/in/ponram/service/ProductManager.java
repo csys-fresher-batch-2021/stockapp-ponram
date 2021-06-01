@@ -60,7 +60,7 @@ public boolean increaseQuantity(int id, int quantity) {
 		boolean success = false;
 		if (ProductValidation.valid(id, quantity)) {
 			
-			productDao.updateQuantity(id, quantity);
+			productDao.updateAddQuantity(id, quantity);
 			success = true;
 		}
 		

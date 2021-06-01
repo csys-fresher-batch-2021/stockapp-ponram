@@ -13,8 +13,7 @@ active bool not null default true
 );
   
 --user table
-CREATE TABLE user_details
-(
+CREATE TABLE user_details(
 user_name varchar(10) primary key,
 mobile_number bigint unique not null,
 gender varchar(10) not null,
@@ -23,6 +22,19 @@ email varchar(30) unique not null,
 admin_user bool not null,
 user_password varchar(20) not null
 );
+
+--order table
+CREATE TABLE orders(bill_id serial primary key,
+				   user_name varchar(10) not null,
+				   total_bill_amount int,
+				   purchase_date date not null);
+
+--order_item table
+CREATE TABLE order_item(id serial primary key,
+				   bill_id int not null,
+				   product_id int not null,
+				   product_quantity int not null,
+				   total_amount int not null);
 
 --Product
 INSERT INTO stock(brand_name,product_name,product_category,arrival_date,initial_quantity,available_quantity,rate ) 

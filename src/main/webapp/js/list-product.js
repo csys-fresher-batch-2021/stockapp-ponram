@@ -1,17 +1,17 @@
 /**
  * This method is used to filter the product in the table by brand name 
- */
+ *///current
 function filter_brand() {
-	let input, filter, table, row, data, i, txtValue;
+	let input, inputFilter, table, row, data, i, txtValue;
 	input = document.getElementById("filter");
-	filter = input.value.toUpperCase();
+	inputFilter = input.value.toUpperCase();
 	table = document.getElementById("list");
 	row = table.getElementsByTagName("tr");
 	for (i = 0; i < row.length; i++) {
-		data = row[i].getElementsByTagName("td")[1];
+		data = row[i].getElementsByTagName("td")[0];
 		if (data) {
 			txtValue = data.textContent || data.innerText;
-			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+			if (txtValue.toUpperCase().indexOf(inputFilter) > -1) {
 				row[i].style.display = "";
 			} else {
 				row[i].style.display = "none";
@@ -35,26 +35,68 @@ function show(a) {
  *This method use the used display the message for success or error message
  */
 function send(id) {
-	let qty = document.getElementById("quantity"+id).value;
-	if(qty.trim()===""){
-		
+	let qty = document.getElementById("quantity" + id).value;
+	if (qty.trim() === "") {
+
 		toastr.error("Input is empty");
 	}
-	else{
+	else {
 		let url = "AddQuantityServlet?id=" + id + "&quantity=" + qty;
 		fetch(url).then(res => res.json()).then(res => {
-		
-		let message = res;
-		if(message.infoMessage != null){
-			toastr.success(message.infoMessage);
-		}
-		if(message.errorMessagemessage != null){
-			toastr.error(message.errorMessage);
-		}
-		getAllProducts();
-	})
+
+			let message = res;
+			if (message.infoMessage != null) {
+				toastr.success(message.infoMessage);
+			}
+			if (message.errorMessagemessage != null) {
+				toastr.error(message.errorMessage);
+			}
+			getAllProducts();
+		})
 	}
 }
+function store() {
+
+	let products = document.querySelectorAll("#products");
+	let check = 0;
+	let selectedProducts = [];
+	products.forEach(obj => {
+		if (obj.checked) {
+			let productId = parseInt(obj.getAttribute("data-product-id"));
+			let quantityTxt = document.getElementById("pquantity" + productId);// quantiy_11
+			let productQuantity = parseInt(quantityTxt.getAttribute("data-product-quantity"));
+			let productName = quantityTxt.getAttribute("data-product-name");
+			let purchaseQty = parseInt(quantityTxt.value);
+			if (productQuantity < purchaseQty) {
+
+				toastr.error("Out of stock - " + productName);
+				check = 1;
+			} else {
+				let productObj = { productId: productId, quantity: purchaseQty };
+				selectedProducts.push(productObj);
+			}
+		}
+	});
+	if (check != 1) {
+		let orderProduct = JSON.stringify(selectedProducts);
+		$.ajax({
+			url: 'OrderProductsServlet',
+			type: 'POST',
+			data: {
+				dt: orderProduct
+			},
+			success: function() {
+				toastr.success("Purchase done");
+				getAllProducts();
+			},
+			error: function() {
+				toastr.error("Can't able place the order");
+			}
+		})
+	}
+
+}
+
 /**
  *This method use the used receive plane text response and convert it into json value then display it in table
  */
@@ -67,7 +109,6 @@ function getAllProducts() {
 		let content = "";
 		for (let product of products) {
 			content += "<tr>" +
-				"<td>" + product.productId + "</td>" +
 				"<td>" + product.brandName + "</td>" +
 				"<td>" + product.productName + "</td>" +
 				"<td>" + product.productCategory + "</td>" +
@@ -77,7 +118,7 @@ function getAllProducts() {
 			if (role != null) {
 				if (role.toLowerCase().localeCompare('admin') == 0) {
 					content += "<td>" +
-						"<a class='btn btn-success' onclick='show(" + product.productId + ")'>Add</a>" +
+						"<a class='btn btn-success' onclick='show(" + product.productId + ")'>Click here</a>" +
 						"<div id='show-" + product.productId + "' style='display:none'>" +
 						"<input type='number' id='quantity" + product.productId + "' placeholder='Enter qunatity'/>" +
 						"<a id='check' onclick='send(" + product.productId + ")' class='btn btn-success'>Add</a>" +
@@ -85,11 +126,13 @@ function getAllProducts() {
 						"</td>" +
 						"<td><a href='RemoveProductServlet?itemName=" + product.productName + "' class='btn btn-danger'>Remove</a></td>";
 				}
-				if(role.toLowerCase().localeCompare('user') == 0){
+				if (role.toLowerCase().localeCompare('user') == 0) {
 					content += "<td>" +
-						"<input type='checkbox' id='book" + product.productId + "'/>" +
+						"<input type='checkbox' id='products' data-product-id=" + product.productId + " onclick='show(" + product.productId + ")'/>" +
+						"</td>" +
+						"<td>" +
 						"<div id='show-" + product.productId + "' style='display:none'>" +
-						"<input type='number' id='quantity" + product.productId + "' placeholder='Enter qunatity'/>" +
+						"<input type='number' id='pquantity" + product.productId + "' min = 1 max=" + product.quantity + " data-product-quantity=" + product.quantity + " data-product-name= " + product.productName + " placeholder='Enter qunatity'/>" +
 						"</div>" +
 						"</td>";
 				}
