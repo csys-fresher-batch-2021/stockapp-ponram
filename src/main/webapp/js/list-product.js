@@ -114,9 +114,9 @@ function getAllProducts() {
 					content += "<td>" +
 						"<a class='btn btn-success' id='clickhere" + product.productId + "' onclick='show(" + product.productId + ")'>Click here</a>" +
 						"<div id='show-" + product.productId + "' style='display:none'>" +
-						"<input type='number' id='quantity" + product.productId + "' placeholder='Enter qunatity'/>" +
-						"<a id='check' onclick='send(" + product.productId + ")' class='btn btn-success'>Add</a>" +
-						"<a id='check' onclick='show(" + product.productId + ")'class='btn btn-danger'>Cancel</a>" +
+						"<input type='number' id='quantity" + product.productId + "' placeholder='Enter qunatity'/> &nbsp;" +
+						"<a id='check' onclick='send(" + product.productId + ")' class='btn btn-success'>Add</a>&nbsp;" +
+						"<a id='check' onclick='show(" + product.productId + ")'class='btn btn-danger'>Cancel</a>&nbsp;" +
 						"</div>" +
 						"</td>" +
 						"<td><a href='RemoveProductServlet?itemName=" + product.productName + "' class='btn btn-danger'>Remove</a></td>";

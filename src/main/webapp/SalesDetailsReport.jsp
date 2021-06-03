@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
 <meta charset="ISO-8859-1">
-<title>List products</title>
+<title>Sales Details</title>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 </head>
@@ -19,11 +19,12 @@ String value = request.getParameter("productId");
 	<div id="message" style="color: green;"></div>
 	<jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
-		<h3>List of stock</h3>
+		<h3>Sales Details</h3>
+		<h2 class="badge badge-success">Total sales:-<span id = "total-sales"></span></h2>
 		<h2 class="badge badge-success">Total Soled quantity:-<span id = "total-sales-quantity"></span></h2>
-		<h2 class="badge badge-info">Total Soled prize:-<span id = "total-sale-samount"></span></h2>
+		<h2 class="badge badge-info">Total Soled prize(Rs):-<span id = "total-sale-samount"></span></h2>
 		<table class="table	table-bordered" id="list">
-			<caption>List all the product in the stock</caption>
+			<caption>List all sales details</caption>
 			<thead>
 				<tr>
 					<th scope="col">Bill no</th>
@@ -43,6 +44,7 @@ String value = request.getParameter("productId");
 		function getSalesDetails() {
 
 			let url = "PurchaseDetailReport?productId="+<%= value %>;
+			let totalsales = 0;
 			let totalSalesQuantity = 0;
 			let totalSalesAmount = 0;
 			fetch(url).then(res => res.json()).then(res => {
@@ -60,9 +62,11 @@ String value = request.getParameter("productId");
 						"<td>" + userDetail.orderDetail.totalAmount + "</td>"+
 						"<td>" + userDetail.purchaseDate + "</td>" +
 						"</tr>";
+					totalsales = totalsales + 1;
 					totalSalesQuantity = totalSalesQuantity + userDetail.orderDetail.quantity;
 					totalSalesAmount  = totalSalesAmount + userDetail.orderDetail.totalAmount;
 				}
+				document.querySelector("#total-sales").innerHTML = totalsales;
 				document.querySelector("#total-sales-quantity").innerHTML = totalSalesQuantity;
 				document.querySelector("#total-sale-samount").innerHTML = totalSalesAmount;
 				document.querySelector("#salesreport-tbl").innerHTML = content;

@@ -45,7 +45,7 @@ String role = (String)session.getAttribute("ROLE");
 					<% if(role != null){ 
 						if("admin".equalsIgnoreCase(role)){%>
 					<th scope="col">Add Quantity</th>
-					<th scope="col">Remove</th>
+					<th scope="col">Action</th>
 					<%}if("user".equalsIgnoreCase(role)){ %>
 					<th scope="col">Select</th>
 					<th scope="col">No.of quantity</th>
