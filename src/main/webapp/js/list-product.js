@@ -92,6 +92,20 @@ function show(a) {
 	}
 }
 /**
+ *This method is used to show the hidden input box
+ */
+function display(a) {
+	let textBox = document.getElementById("display-" + a);
+	if (textBox.style.display === "none") {
+		
+		textBox.style.display = "block";
+
+	} else {
+		
+		textBox.style.display = "none";
+	}
+}
+/**
  *This method use the used receive plane text response and convert it into json value then display it in table
  */
 function getAllProducts() {
@@ -123,10 +137,10 @@ function getAllProducts() {
 				}
 				if (role.toLowerCase().localeCompare('user') == 0) {
 					content += "<td>" +
-						"<input type='checkbox' id='products' data-product-id=" + product.productId + " onclick='show(" + product.productId + ")'/>" +
+						"<input type='checkbox' id='products' data-product-id=" + product.productId + " onclick='display(" + product.productId + ")'/>" +
 						"</td>" +
 						"<td>" +
-						"<div id='show-" + product.productId + "' style='display:none'>" +
+						"<div id='display-" + product.productId + "' style='display:none'>" +
 						"<input type='number' id='pquantity" + product.productId + "' min = 1 max=" + product.quantity + " data-product-quantity=" + product.quantity + " data-product-name= " + product.productName + " placeholder='Enter qunatity'/>" +
 						"</div>" +
 						"</td>";
