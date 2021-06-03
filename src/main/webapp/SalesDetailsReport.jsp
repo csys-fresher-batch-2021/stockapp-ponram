@@ -7,26 +7,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="ISO-8859-1">
-	<title>List products</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<meta charset="ISO-8859-1">
+<title>List products</title>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 </head>
 <body>
-<%
+	<%
 String value = request.getParameter("productId");
 %>
-	<div id="message" style="color:green;"></div>
+	<div id="message" style="color: green;"></div>
 	<jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
-	<h3>List of stock</h3>
-	
+		<h3>List of stock</h3>
+
 		<div class="row">
 			<div class="col-md-6">
-			<label>Filter:</label>
-			<input type="text" class="brandFilter" id="filter" onkeyup="filter_brand()" placeholder="Brand name" >
+				<label>Filter:</label> <input type="text" class="brandFilter"
+					id="filter" onkeyup="filter_brand()" placeholder="Brand name">
 			</div>
-			<div class="col-md-6 text-right ">
-			</div>
+			<div class="col-md-6 text-right "></div>
 		</div>
 		<table class="table	table-bordered" id="list">
 			<caption>List all the product in the stock</caption>
@@ -46,13 +46,11 @@ String value = request.getParameter("productId");
 			</tbody>
 		</table>
 		<script>
-		function getAllProducts() {
+		function getSalesDetails() {
 
 			let url = "PurchaseDetailReport?productId="+<%= value %>;
-			console.log(url);
 			fetch(url).then(res => res.json()).then(res => {
 				let userDetails = res;
-				console.log(userDetails);
 				let content = "";
 				for (let userDetail of userDetails) {
 					
@@ -72,8 +70,8 @@ String value = request.getParameter("productId");
 			})
 
 		}
-		getAllProducts();
+		getSalesDetails();
 		</script>
-		</main>
+	</main>
 </body>
 </html>
