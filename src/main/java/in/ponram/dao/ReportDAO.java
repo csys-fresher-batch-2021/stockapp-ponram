@@ -56,7 +56,6 @@ public class ReportDAO {
 
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
 			throw new DBException("Unable to fetch products");
 		} finally {
 			

@@ -69,7 +69,6 @@ public class UserDAO {
 			
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
 			throw new DBException("Unable to fetch user");
 		} finally {
 			
