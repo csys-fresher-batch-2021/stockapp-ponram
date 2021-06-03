@@ -9,8 +9,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>List products</title>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 </head>
 <body>
 	<%
@@ -41,7 +40,7 @@ String role = (String)session.getAttribute("ROLE");
 					<th scope="col">Item Name</th>
 					<th scope="col">Category</th>
 					<th scope="col">Arrival date</th>
-					<th scope="col">Rate</th>
+					<th scope="col">Prize(Rs.)</th>
 					<th scope="col">Quantity</th>
 					<% if(role != null){ 
 						if("admin".equalsIgnoreCase(role)){%>

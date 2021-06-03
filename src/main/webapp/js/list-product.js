@@ -1,14 +1,4 @@
-/**
- *This method is used to show the hidden input box
- */
-function show(a) {
-	let x = document.getElementById("show-" + a);
-	if (x.style.display === "none") {
-		x.style.display = "block";
-	} else {
-		x.style.display = "none";
-	}
-}
+
 /**
  *This method use the used display the message for success or error message
  */
@@ -83,7 +73,24 @@ function store() {
 	}
 
 }
+/**
+ *This method is used to show the hidden input box
+ */
+function show(a) {
+	let textBox = document.getElementById("show-" + a);
+	let clickherebtn = document.getElementById("clickhere" + a);
+	if (textBox.style.display === "none") {
+		
+		clickherebtn.style.display = "none";
+		textBox.style.display = "block";
 
+	} else {
+		
+		textBox.value = "";
+		clickherebtn.style.display = "block"
+		textBox.style.display = "none";
+	}
+}
 /**
  *This method use the used receive plane text response and convert it into json value then display it in table
  */
@@ -105,10 +112,11 @@ function getAllProducts() {
 			if (role != null) {
 				if (role.toLowerCase().localeCompare('admin') == 0) {
 					content += "<td>" +
-						"<a class='btn btn-success' onclick='show(" + product.productId + ")'>Click here</a>" +
+						"<a class='btn btn-success' id='clickhere" + product.productId + "' onclick='show(" + product.productId + ")'>Click here</a>" +
 						"<div id='show-" + product.productId + "' style='display:none'>" +
 						"<input type='number' id='quantity" + product.productId + "' placeholder='Enter qunatity'/>" +
 						"<a id='check' onclick='send(" + product.productId + ")' class='btn btn-success'>Add</a>" +
+						"<a id='check' onclick='show(" + product.productId + ")'class='btn btn-danger'>Cancel</a>" +
 						"</div>" +
 						"</td>" +
 						"<td><a href='RemoveProductServlet?itemName=" + product.productName + "' class='btn btn-danger'>Remove</a></td>";

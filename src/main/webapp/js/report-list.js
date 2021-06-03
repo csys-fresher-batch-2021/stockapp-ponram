@@ -15,12 +15,14 @@ function getAllReports() {
 				"<td>" + reportProduct.quantity + "</td>";
 				
 				let status = "Active"
+				let badge = "badge badge-success even-larger-badge";
 				if(!reportProduct.status){
 					
+					badge = "badge badge-danger";
 					status = "Inactive";
 				}
 				
-				content += "<td>"+status+"</td>"+
+				content += "<td><span class='"+badge+"'>"+status+"</span></td>"+
 				"<td>"+
 				"<a href='SalesDetailsReport.jsp?productId=" + reportProduct.productId + "' class='btn btn-primary')'>Click here</a>"+
 				"</td>"+

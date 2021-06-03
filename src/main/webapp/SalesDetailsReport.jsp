@@ -20,14 +20,8 @@ String value = request.getParameter("productId");
 	<jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
 		<h3>List of stock</h3>
-
-		<div class="row">
-			<div class="col-md-6">
-				<label>Filter:</label> <input type="text" class="brandFilter"
-					id="filter" onkeyup="filter_brand()" placeholder="Brand name">
-			</div>
-			<div class="col-md-6 text-right "></div>
-		</div>
+		<h2 class="badge badge-success">Total Soled quantity:-<span id = "total-sales-quantity"></span></h2>
+		<h2 class="badge badge-info">Total Soled prize:-<span id = "total-sale-samount"></span></h2>
 		<table class="table	table-bordered" id="list">
 			<caption>List all the product in the stock</caption>
 			<thead>
@@ -36,7 +30,7 @@ String value = request.getParameter("productId");
 					<th scope="col">Customer Name</th>
 					<th scope="col">Brand Name</th>
 					<th scope="col">Product Name</th>
-					<th scope="col">Rate</th>
+					<th scope="col">Prize(Rs.)</th>
 					<th scope="col">Purchased Quantity</th>
 					<th scope="col">Total Amount</th>
 					<th scope="col">Purchased Date</th>
@@ -49,6 +43,8 @@ String value = request.getParameter("productId");
 		function getSalesDetails() {
 
 			let url = "PurchaseDetailReport?productId="+<%= value %>;
+			let totalSalesQuantity = 0;
+			let totalSalesAmount = 0;
 			fetch(url).then(res => res.json()).then(res => {
 				let userDetails = res;
 				let content = "";
@@ -64,8 +60,11 @@ String value = request.getParameter("productId");
 						"<td>" + userDetail.orderDetail.totalAmount + "</td>"+
 						"<td>" + userDetail.purchaseDate + "</td>" +
 						"</tr>";
+					totalSalesQuantity = totalSalesQuantity + userDetail.orderDetail.quantity;
+					totalSalesAmount  = totalSalesAmount + userDetail.orderDetail.totalAmount;
 				}
-
+				document.querySelector("#total-sales-quantity").innerHTML = totalSalesQuantity;
+				document.querySelector("#total-sale-samount").innerHTML = totalSalesAmount;
 				document.querySelector("#salesreport-tbl").innerHTML = content;
 			})
 
