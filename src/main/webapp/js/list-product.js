@@ -1,36 +1,4 @@
-/**
- * This method is used to filter the product in the table by brand name 
- *///current
-function filter_brand() {
-	let input, inputFilter, table, row, data, i, txtValue;
-	input = document.getElementById("filter");
-	inputFilter = input.value.toUpperCase();
-	table = document.getElementById("list");
-	row = table.getElementsByTagName("tr");
-	for (i = 0; i < row.length; i++) {
-		data = row[i].getElementsByTagName("td")[0];
-		if (data) {
-			txtValue = data.textContent || data.innerText;
-			if (txtValue.toUpperCase().indexOf(inputFilter) > -1) {
-				row[i].style.display = "";
-			} else {
-				row[i].style.display = "none";
-			}
-		}
-	}
-}
 
-/**
- *This method is used to show the hidden input box
- */
-function show(a) {
-	let x = document.getElementById("show-" + a);
-	if (x.style.display === "none") {
-		x.style.display = "block";
-	} else {
-		x.style.display = "none";
-	}
-}
 /**
  *This method use the used display the message for success or error message
  */
@@ -66,14 +34,23 @@ function store() {
 			let quantityTxt = document.getElementById("pquantity" + productId);// quantiy_11
 			let productQuantity = parseInt(quantityTxt.getAttribute("data-product-quantity"));
 			let productName = quantityTxt.getAttribute("data-product-name");
-			let purchaseQty = parseInt(quantityTxt.value);
-			if (productQuantity < purchaseQty) {
-
-				toastr.error("Out of stock - " + productName);
+			let purchaseQty = quantityTxt.value;
+			if (purchaseQty.trim() === "") {
+				toastr.error(productName + " Quantity is empty");
 				check = 1;
-			} else {
-				let productObj = { productId: productId, quantity: purchaseQty };
-				selectedProducts.push(productObj);
+			}
+			else {
+				purchaseQty = parseInt(purchaseQty);
+				if (productQuantity < purchaseQty) {
+
+					toastr.error("Out of stock - " + productName);
+					check = 1;
+				}
+
+				else {
+					let productObj = { productId: productId, quantity: purchaseQty };
+					selectedProducts.push(productObj);
+				}
 			}
 		}
 	});
@@ -96,7 +73,24 @@ function store() {
 	}
 
 }
+/**
+ *This method is used to show the hidden input box
+ */
+function show(a) {
+	let textBox = document.getElementById("show-" + a);
+	let clickherebtn = document.getElementById("clickhere" + a);
+	if (textBox.style.display === "none") {
+		
+		clickherebtn.style.display = "none";
+		textBox.style.display = "block";
 
+	} else {
+		
+		textBox.value = "";
+		clickherebtn.style.display = "block"
+		textBox.style.display = "none";
+	}
+}
 /**
  *This method use the used receive plane text response and convert it into json value then display it in table
  */
@@ -118,10 +112,11 @@ function getAllProducts() {
 			if (role != null) {
 				if (role.toLowerCase().localeCompare('admin') == 0) {
 					content += "<td>" +
-						"<a class='btn btn-success' onclick='show(" + product.productId + ")'>Click here</a>" +
+						"<a class='btn btn-success' id='clickhere" + product.productId + "' onclick='show(" + product.productId + ")'>Click here</a>" +
 						"<div id='show-" + product.productId + "' style='display:none'>" +
-						"<input type='number' id='quantity" + product.productId + "' placeholder='Enter qunatity'/>" +
-						"<a id='check' onclick='send(" + product.productId + ")' class='btn btn-success'>Add</a>" +
+						"<input type='number' id='quantity" + product.productId + "' placeholder='Enter qunatity'/> &nbsp;" +
+						"<a id='check' onclick='send(" + product.productId + ")' class='btn btn-success'>Add</a>&nbsp;" +
+						"<a id='check' onclick='show(" + product.productId + ")'class='btn btn-danger'>Cancel</a>&nbsp;" +
 						"</div>" +
 						"</td>" +
 						"<td><a href='RemoveProductServlet?itemName=" + product.productName + "' class='btn btn-danger'>Remove</a></td>";

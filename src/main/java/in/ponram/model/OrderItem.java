@@ -47,8 +47,9 @@ public class OrderItem {
 	}
 	@Override
 	public String toString() {
-		return "OrderDetails [billNumber=" + billNumber + ", productId=" + productId + ", productName=" + productName
-				+ ", rate=" + rate + ", quantity=" + quantity + ", totalAmount=" + totalAmount + "]";
+		return "OrderItem [billNumber=" + billNumber + ", productId=" + productId + ", brandName=" + brandName
+				+ ", productCategory=" + productCategory + ", productName=" + productName + ", rate=" + rate
+				+ ", quantity=" + quantity + ", totalAmount=" + totalAmount + "]";
 	}
 	public String getBrandName() {
 		return brandName;

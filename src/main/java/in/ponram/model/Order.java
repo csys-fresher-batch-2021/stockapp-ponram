@@ -7,7 +7,8 @@ public class Order {
 
 	private int billNumber;
 	private String customerName;
-	private List<OrderItem> orderDetail;
+	private List<OrderItem> orderDetails;
+	private OrderItem orderDetail;
 	private int totalAmount;
 	private LocalDate purchaseDate;
 	
@@ -36,12 +37,21 @@ public class Order {
 	public void setPurchaseDate() {
 		this.purchaseDate = LocalDate.now();
 	}
-
-	public List<OrderItem> getOrderDetail() {
+	
+	public void setPurchaseDate1(LocalDate date) {
+		this.purchaseDate = date;
+	}
+	public List<OrderItem> getOrderDetails() {
+		return orderDetails;
+	}
+	public void setOrderDetails(List<OrderItem> purchase) {
+		this.orderDetails = purchase;
+	}
+	public OrderItem getOrderDetail() {
 		return orderDetail;
 	}
-	public void setOrderDetail(List<OrderItem> purchase) {
-		this.orderDetail = purchase;
+	public void setOrderDetail(OrderItem orderDetail) {
+		this.orderDetail = orderDetail;
 	}
 	@Override
 	public String toString() {

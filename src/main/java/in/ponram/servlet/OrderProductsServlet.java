@@ -54,7 +54,7 @@ public class OrderProductsServlet extends HttpServlet {
 			}
 			val.setCustomerName(user);
 			val.setPurchaseDate();
-			val.setOrderDetail(orderItems);
+			val.setOrderDetails(orderItems);
 			orderManagerObj.orderProducts(val);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -169,4 +169,5 @@ public class ProductDAO {
 			ConnectionUtil.closeConnection(rs,pst, connection);
 		}
 	}
+	
 }
