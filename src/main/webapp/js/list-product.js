@@ -1,6 +1,6 @@
 /**
  * This method is used to filter the product in the table by brand name 
- *///current
+ */
 function filter_brand() {
 	let input, inputFilter, table, row, data, i, txtValue;
 	input = document.getElementById("filter");
@@ -66,14 +66,23 @@ function store() {
 			let quantityTxt = document.getElementById("pquantity" + productId);// quantiy_11
 			let productQuantity = parseInt(quantityTxt.getAttribute("data-product-quantity"));
 			let productName = quantityTxt.getAttribute("data-product-name");
-			let purchaseQty = parseInt(quantityTxt.value);
-			if (productQuantity < purchaseQty) {
-
-				toastr.error("Out of stock - " + productName);
+			let purchaseQty = quantityTxt.value;
+			if (purchaseQty.trim() === "") {
+				toastr.error(productName + " Quantity is empty");
 				check = 1;
-			} else {
-				let productObj = { productId: productId, quantity: purchaseQty };
-				selectedProducts.push(productObj);
+			}
+			else {
+				purchaseQty = parseInt(purchaseQty);
+				if (productQuantity < purchaseQty) {
+
+					toastr.error("Out of stock - " + productName);
+					check = 1;
+				}
+
+				else {
+					let productObj = { productId: productId, quantity: purchaseQty };
+					selectedProducts.push(productObj);
+				}
 			}
 		}
 	});

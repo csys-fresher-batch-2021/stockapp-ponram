@@ -12,13 +12,12 @@ import in.ponram.util.NumberValidator;
 
 public class OrderValidation {
 
-//	static private OrdarDAO orderDAO = new OrdarDAO();
-
-	static ProductDAO productDetails = new ProductDAO();
 
 	private OrderValidation() {
 		// default constructor
 	}
+	
+	private static ProductDAO productDetails = new ProductDAO();
 
 	/**
 	 * This method is used to validate product id and check quantity is valid
@@ -29,7 +28,7 @@ public class OrderValidation {
 
 		// validation
 		boolean isValid = false;
-		for (OrderItem details : order.getOrderDetail()) {
+		for (OrderItem details : order.getOrderDetails()) {
 			boolean isValidId = NumberValidator.isValidNumber(details.getProductId(), "Invalid Id");
 			if ( isValidId) {
 				boolean isValidQuantity = checkQuantity(details.getQuantity(),details.getProductId());

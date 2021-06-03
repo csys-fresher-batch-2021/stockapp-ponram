@@ -19,7 +19,7 @@ public class OrderManager {
 		if(OrderValidation.isValidIdAndQuantity(order)) {
 		
 			Integer orderId = orderDAO.save(order);
-			for (OrderItem details : order.getOrderDetail()) {
+			for (OrderItem details : order.getOrderDetails()) {
 				
 				OrderItemDAO orderItemDAO = new OrderItemDAO();
 				int rate = OrderValidation.getRate(details.getProductId());

@@ -26,13 +26,18 @@ public class Product {
 		this.quantity = quantity;
 	}
 
+	public Product() {
+		// TODO Auto-generated constructor stub
+	}
+
 	private String brandName;
 	private String productName;
 	private String productCategory;
 	private LocalDate arrivalDate;
 	private int rate;
 	private int quantity;
-
+	private int initialQuantity;
+	private boolean status;
 	public int getProductId() {
 		return productId;
 	}
@@ -66,6 +71,50 @@ public class Product {
 	public String toString() {
 		return "Product [product Id=" + productId + ", brandName=" + brandName + ", Product Name=" + productName + ", Product Category="
 				+ productCategory + ", arrivalDate=" + arrivalDate + ", rate=" + rate + ", quantity=" + quantity + "]";
+	}
+
+	public int getInitialQuantity() {
+		return initialQuantity;
+	}
+
+	public void setInitialQuantity(int initialQuantity) {
+		this.initialQuantity = initialQuantity;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public void setProductCategory(String productCategory) {
+		this.productCategory = productCategory;
+	}
+
+	public void setArrivalDate(LocalDate arrivalDate) {
+		this.arrivalDate = arrivalDate;
+	}
+
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 }
