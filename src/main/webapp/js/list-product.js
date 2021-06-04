@@ -4,7 +4,7 @@
  */
 function send(id) {
 	let qty = document.getElementById("quantity" + id).value;
-	if (qty.trim() === "") {
+	if (validateQuantity( parseInt(qty)) || qty.trim() === "") {
 
 		toastr.error("Input is empty");
 	}
@@ -23,6 +23,17 @@ function send(id) {
 		})
 	}
 }
+
+function validateQuantity( quantity){
+	let valid = false;
+	if(quantity <= 0)
+	{
+		toastr.error("Invalid quantity");
+		valid = true;
+	}
+	return valid;
+}
+
 function store() {
 
 	let products = document.querySelectorAll("#products");
@@ -41,7 +52,7 @@ function store() {
 			}
 			else {
 				purchaseQty = parseInt(purchaseQty);
-				if (productQuantity < purchaseQty) {
+				if (validateQuantity( purchaseQty) || productQuantity < purchaseQty) {
 
 					toastr.error("Out of stock - " + productName);
 					check = 1;
@@ -105,6 +116,17 @@ function display(a) {
 		textBox.style.display = "none";
 	}
 }
+function table_view(product){
+	let value = "";
+	value = "<tr>" +
+				"<td>" + product.brandName + "</td>" +
+				"<td>" + product.productName + "</td>" +
+				"<td>" + product.productCategory + "</td>" +
+				"<td>" + product.arrivalDate + "</td>" +
+				"<td>" + product.rate + "</td>" +
+				"<td>" + product.quantity + "</td>";
+	return value;
+}
 /**
  *This method use the used receive plane text response and convert it into json value then display it in table
  */
@@ -116,13 +138,14 @@ function getAllProducts() {
 		let products = res;
 		let content = "";
 		for (let product of products) {
-			content += "<tr>" +
-				"<td>" + product.brandName + "</td>" +
-				"<td>" + product.productName + "</td>" +
-				"<td>" + product.productCategory + "</td>" +
-				"<td>" + product.arrivalDate + "</td>" +
-				"<td>" + product.rate + "</td>" +
-				"<td>" + product.quantity + "</td>";
+			if(role == null || role.toLowerCase().localeCompare('user') == 0){
+				if(product.quantity > 0){
+				content += table_view(product) ;
+				}
+			}
+			else{
+				content += table_view(product);
+			}
 			if (role != null) {
 				if (role.toLowerCase().localeCompare('admin') == 0) {
 					content += "<td>" +
@@ -135,7 +158,7 @@ function getAllProducts() {
 						"</td>" +
 						"<td><a href='RemoveProductServlet?itemName=" + product.productName + "' class='btn btn-danger'>Remove</a></td>";
 				}
-				if (role.toLowerCase().localeCompare('user') == 0) {
+				if (role.toLowerCase().localeCompare('user') == 0 && product.quantity > 0) {
 					content += "<td>" +
 						"<input type='checkbox' id='products' data-product-id=" + product.productId + " onclick='display(" + product.productId + ")'/>" +
 						"</td>" +
@@ -149,7 +172,6 @@ function getAllProducts() {
 
 			content += "</tr>";
 		}
-
 		document.querySelector("#listProduct-tbl").innerHTML = content;
 	})
 
