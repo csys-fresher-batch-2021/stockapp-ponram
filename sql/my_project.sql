@@ -7,7 +7,7 @@ product_name varchar(20) not null,
 product_category varchar(20) not null,
 arrival_date date not null,
 initial_quantity int not null check (initial_quantity between 1 and 1000),
-available_quantity int not null check (available_quantity between 1 and 1000),
+available_quantity int not null check (available_quantity between 0 and 1000),
 rate int not null check ( rate between 1 and 1000000),
 active bool not null default true
 );
