@@ -5,7 +5,7 @@
 	<groupId>in.ponram</groupId>
 	<artifactId>app</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>stockapp-ponram</name>
 	<url>https://github.com/csys-fresher-batch-2021/yourreponame</url>
 
