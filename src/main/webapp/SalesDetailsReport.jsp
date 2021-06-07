@@ -22,7 +22,7 @@ String value = request.getParameter("productId");
 		<h3>Sales Details</h3>
 		<h2 class="badge badge-success">Total sales:-<span id = "total-sales"></span></h2>
 		<h2 class="badge badge-success">Total Soled quantity:-<span id = "total-sales-quantity"></span></h2>
-		<h2 class="badge badge-info">Total Soled prize(Rs):-<span id = "total-sale-samount"></span></h2>
+		<h2 class="badge badge-info">Total Soled prize&#8377;:-<span id = "total-sale-samount"></span></h2>
 		<table class="table	table-bordered" id="list">
 			<caption>List all sales details</caption>
 			<thead>
@@ -31,9 +31,9 @@ String value = request.getParameter("productId");
 					<th scope="col">Customer Name</th>
 					<th scope="col">Brand Name</th>
 					<th scope="col">Product Name</th>
-					<th scope="col">Prize(Rs.)</th>
+					<th scope="col">Prize&#8377;</th>
 					<th scope="col">Purchased Quantity</th>
-					<th scope="col">Total Amount</th>
+					<th scope="col">Total Amount&#8377;</th>
 					<th scope="col">Purchased Date</th>
 				</tr>
 			</thead>

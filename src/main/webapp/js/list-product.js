@@ -3,13 +3,11 @@
  *This method use the used display the message for success or error message
  */
 function send(id) {
-	let qty = document.getElementById("quantity" + id).value;
-	if (validateQuantity( parseInt(qty)) || qty.trim() === "") {
-
-		toastr.error("Input is empty");
-	}
-	else {
-		let url = "AddQuantityServlet?id=" + id + "&quantity=" + qty;
+	let textBox = document.querySelector("#quantity" + id);
+	let quantity = textBox.value;
+	let product = textBox.getAttribute("data-product-name");
+	if (isNotEmptyInput(quantity, product) && isValidateQuantity(parseInt(quantity))) {
+		let url = "AddQuantityServlet?id=" + id + "&quantity=" + quantity;
 		fetch(url).then(res => res.json()).then(res => {
 
 			let message = res;
@@ -24,20 +22,31 @@ function send(id) {
 	}
 }
 
-function validateQuantity( quantity){
-	let valid = false;
-	if(quantity <= 0)
-	{
+function isNotEmptyInput(input, product) {
+
+	let valid = true;
+	if (input.trim() === "") {
+
+		toastr.error(product + " quantity is empty");
+		valid = false;
+	}
+	return valid;
+}
+
+function isValidateQuantity(quantity) {
+	let valid = true;
+	if (quantity <= 0) {
 		toastr.error("Invalid quantity");
-		valid = true;
+		valid = false;
 	}
 	return valid;
 }
 
 function store() {
 
+	let noOfSuccess = 0, noOfItems = 0;
 	let products = document.querySelectorAll("#products");
-	let check = 0;
+	let check = false;
 	let selectedProducts = [];
 	products.forEach(obj => {
 		if (obj.checked) {
@@ -46,26 +55,24 @@ function store() {
 			let productQuantity = parseInt(quantityTxt.getAttribute("data-product-quantity"));
 			let productName = quantityTxt.getAttribute("data-product-name");
 			let purchaseQty = quantityTxt.value;
-			if (purchaseQty.trim() === "") {
-				toastr.error(productName + " Quantity is empty");
-				check = 1;
-			}
-			else {
-				purchaseQty = parseInt(purchaseQty);
-				if (validateQuantity( purchaseQty) || productQuantity < purchaseQty) {
+			check = isNotEmptyInput(purchaseQty, productName);
+			if (check) {
+				check = isValidateQuantity(parseInt(purchaseQty));
+				if (check && productQuantity < parseInt(purchaseQty)) {
 
 					toastr.error("Out of stock - " + productName);
-					check = 1;
-				}
-
-				else {
-					let productObj = { productId: productId, quantity: purchaseQty };
-					selectedProducts.push(productObj);
+					check = false;
 				}
 			}
+			if (check) {
+				let productObj = { productId: productId, quantity: purchaseQty };
+				selectedProducts.push(productObj);
+				noOfSuccess++;
+			}
+			noOfItems++;
 		}
 	});
-	if (check != 1) {
+	if (noOfItems == noOfSuccess) {
 		let orderProduct = JSON.stringify(selectedProducts);
 		$.ajax({
 			url: 'OrderProductsServlet',
@@ -77,12 +84,11 @@ function store() {
 				toastr.success("Purchase done");
 				getAllProducts();
 			},
-			error: function() {
-				toastr.error("Can't able place the order");
+			error: function(responseText) {
+				toastr.error(responseText);
 			}
 		})
 	}
-
 }
 /**
  *This method is used to show the hidden input box
@@ -91,12 +97,12 @@ function show(a) {
 	let textBox = document.getElementById("show-" + a);
 	let clickherebtn = document.getElementById("clickhere" + a);
 	if (textBox.style.display === "none") {
-		
+
 		clickherebtn.style.display = "none";
 		textBox.style.display = "block";
 
 	} else {
-		
+
 		textBox.value = "";
 		clickherebtn.style.display = "block"
 		textBox.style.display = "none";
@@ -108,23 +114,23 @@ function show(a) {
 function display(a) {
 	let textBox = document.getElementById("display-" + a);
 	if (textBox.style.display === "none") {
-		
+
 		textBox.style.display = "block";
 
 	} else {
-		
+
 		textBox.style.display = "none";
 	}
 }
-function table_view(product){
+function table_view(product) {
 	let value = "";
 	value = "<tr>" +
-				"<td>" + product.brandName + "</td>" +
-				"<td>" + product.productName + "</td>" +
-				"<td>" + product.productCategory + "</td>" +
-				"<td>" + product.arrivalDate + "</td>" +
-				"<td>" + product.rate + "</td>" +
-				"<td>" + product.quantity + "</td>";
+		"<td>" + product.brandName + "</td>" +
+		"<td>" + product.productName + "</td>" +
+		"<td>" + product.productCategory + "</td>" +
+		"<td>" + product.arrivalDate + "</td>" +
+		"<td>" + product.rate + "</td>" +
+		"<td>" + product.quantity + "</td>";
 	return value;
 }
 /**
@@ -138,28 +144,24 @@ function getAllProducts() {
 		let products = res;
 		let content = "";
 		for (let product of products) {
-			if(role == null || role.toLowerCase().localeCompare('user') == 0){
-				if(product.quantity > 0){
-				content += table_view(product) ;
-				}
-			}
-			else{
+			if (role == null && product.quantity > 0) {
+
 				content += table_view(product);
 			}
 			if (role != null) {
 				if (role.toLowerCase().localeCompare('admin') == 0) {
-					content += "<td>" +
+					content += table_view(product) + "<td>" +
 						"<a class='btn btn-success' id='clickhere" + product.productId + "' onclick='show(" + product.productId + ")'>Click here</a>" +
 						"<div id='show-" + product.productId + "' style='display:none'>" +
-						"<input type='number' id='quantity" + product.productId + "' placeholder='Enter qunatity'/> &nbsp;" +
-						"<a id='check' onclick='send(" + product.productId + ")' class='btn btn-success'>Add</a>&nbsp;" +
-						"<a id='check' onclick='show(" + product.productId + ")'class='btn btn-danger'>Cancel</a>&nbsp;" +
+						"<input type='number' id='quantity" + product.productId + "' data-product-name= " + product.productName + " placeholder='Enter qunatity'/> &nbsp;" +
+						"<a id='check' onclick=send(" + product.productId + ") class='btn btn-success'>Add</a>&nbsp;" +
+						"<a id='check' onclick=show(" + product.productId + ") class='btn btn-danger'>Cancel</a>&nbsp;" +
 						"</div>" +
 						"</td>" +
 						"<td><a href='RemoveProductServlet?itemName=" + product.productName + "' class='btn btn-danger'>Remove</a></td>";
 				}
 				if (role.toLowerCase().localeCompare('user') == 0 && product.quantity > 0) {
-					content += "<td>" +
+					content += table_view(product) + "<td>" +
 						"<input type='checkbox' id='products' data-product-id=" + product.productId + " onclick='display(" + product.productId + ")'/>" +
 						"</td>" +
 						"<td>" +
@@ -174,6 +176,5 @@ function getAllProducts() {
 		}
 		document.querySelector("#listProduct-tbl").innerHTML = content;
 	})
-
 }
 getAllProducts();

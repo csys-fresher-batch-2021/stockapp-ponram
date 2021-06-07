@@ -37,7 +37,7 @@ public class UserDAO {
 			pst.executeUpdate();
 		} catch (SQLException e) {
 
-			throw new DBException("Can't able to register");
+			throw new DBException("Can't able to register or user already exists");
 		} finally {
 
 			ConnectionUtil.closeConnection(rs, pst, connection);

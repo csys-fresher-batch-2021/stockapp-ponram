@@ -40,7 +40,7 @@ String role = (String)session.getAttribute("ROLE");
 					<th scope="col">Item Name</th>
 					<th scope="col">Category</th>
 					<th scope="col">Arrival date</th>
-					<th scope="col">Prize(Rs.)</th>
+					<th scope="col">Prize&#8377;</th>
 					<th scope="col">Quantity</th>
 					<% if(role != null){ 
 						if("admin".equalsIgnoreCase(role)){%>
