@@ -9,7 +9,8 @@ arrival_date date not null,
 initial_quantity int not null check (initial_quantity between 1 and 1000),
 available_quantity int not null check (available_quantity between 0 and 1000),
 rate int not null check ( rate between 1 and 1000000),
-active bool not null default true
+active bool not null default true,
+UNIQUE (brand_name,product_name)
 );
   
 --user table
@@ -51,6 +52,15 @@ values ('Apple','SE2020','Mobile','2021-05-27',20,20,40000);
 
 INSERT INTO stock(brand_name,product_name,product_category,arrival_date,initial_quantity,available_quantity,rate ) 
 values ('Dell','Inspiron 15','Laptop','2021-05-27',30,30,15000);
+
+INSERT INTO stock(brand_name,product_name,product_category,arrival_date,initial_quantity,available_quantity,rate ) 
+values ('Apple','11promax','Mobile','2021-05-28',20,20,100000);
+
+INSERT INTO stock(brand_name,product_name,product_category,arrival_date,initial_quantity,available_quantity,rate ) 
+values ('realme','bluetoothBuds','Headphone','2021-05-28',30,30,1500);
+
+INSERT INTO stock(brand_name,product_name,product_category,arrival_date,initial_quantity,available_quantity,rate ) 
+values ('Asuse','x509ua','Laptop','2021-05-29',30,30,35000);
 
 --User
 INSERT INTO user_details(user_name,mobile_number,gender,address,email,admin_user,user_password ) values ('Admin',8888888888,'Male','Thoothukudi','Admin@gmail.com',true,'Admin@123')

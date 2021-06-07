@@ -43,7 +43,7 @@ public class ProductDAO {
 			pst.executeUpdate();
 		} catch (SQLException e) {
 
-			throw new DBException("Product can't be added");
+			throw new DBException("Product already exists");
 		} finally {
 
 			ConnectionUtil.closeConnection(rs,pst, connection);

@@ -47,7 +47,7 @@ public class OrderProductsServlet extends HttpServlet {
 				String obj1 = jsonElement.getAsJsonObject().get("productId").getAsString();
 				String obj2 = jsonElement.getAsJsonObject().get("quantity").getAsString();
 				int id = NumberValidator.parseInt(obj1,"Invalid id");
-				int quantity = NumberValidator.parseInt(obj2,"Invalid id");
+				int quantity = NumberValidator.parseInt(obj2,"Invalid quantity");
 				item.setProductId(id);
 				item.setQuantity(quantity);
 				orderItems.add(item);
