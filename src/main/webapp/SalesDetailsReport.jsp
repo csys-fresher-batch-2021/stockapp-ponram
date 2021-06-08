@@ -21,7 +21,7 @@ String value = request.getParameter("productId");
 	<main class="container-fluid">
 		<h3>Sales Details</h3>
 		<h2 class="badge badge-success">Total sales:-<span id = "total-sales"></span></h2>
-		<h2 class="badge badge-success">Total Soled quantity:-<span id = "total-sales-quantity"></span></h2>
+		<h2 class="badge badge-success">Total Sold quantity:-<span id = "total-sales-quantity"></span></h2>
 		<h2 class="badge badge-info">Total Soled prize&#8377;:-<span id = "total-sale-samount"></span></h2>
 		<table class="table	table-bordered" id="list">
 			<caption>List all sales details</caption>

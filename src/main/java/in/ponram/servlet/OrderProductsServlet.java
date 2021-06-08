@@ -1,6 +1,7 @@
 package in.ponram.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,26 +29,28 @@ import in.ponram.util.NumberValidator;
 
 public class OrderProductsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 
-		String order =request.getParameter("dt") ;
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		PrintWriter out = response.getWriter();
+		String order = request.getParameter("dt");
+		// String user =request.getParameter("USER_NAME") ;
 		HttpSession session = request.getSession();
-		String user = (String)session.getAttribute("USER_NAME");
+		String user = (String) session.getAttribute("USER_NAME");
 		List<OrderItem> orderItems = new ArrayList<>();
 		JsonArray jsonObject = new JsonParser().parse(order).getAsJsonArray();
 		OrderManager orderManagerObj = new OrderManager();
 		Order val = new Order();
 		try {
 			for (JsonElement jsonElement : jsonObject) {
-				
+
 				OrderItem item = new OrderItem();
 				String obj1 = jsonElement.getAsJsonObject().get("productId").getAsString();
 				String obj2 = jsonElement.getAsJsonObject().get("quantity").getAsString();
-				int id = NumberValidator.parseInt(obj1,"Invalid id");
-				int quantity = NumberValidator.parseInt(obj2,"Invalid quantity");
+				int id = NumberValidator.parseInt(obj1, "Invalid id");
+				int quantity = NumberValidator.parseInt(obj2, "Invalid quantity");
 				item.setProductId(id);
 				item.setQuantity(quantity);
 				orderItems.add(item);
@@ -57,7 +60,11 @@ public class OrderProductsServlet extends HttpServlet {
 			val.setOrderDetails(orderItems);
 			orderManagerObj.orderProducts(val);
 		} catch (Exception e) {
-			e.printStackTrace();
+
+			JsonObject error = new JsonObject();
+			error.addProperty("errorMessage", e.getMessage());
+			out.print(error.toString());
 		}
+		out.flush();
 	}
 }
