@@ -84,8 +84,8 @@ function store() {
 				toastr.success("Purchase done");
 				getAllProducts();
 			},
-			error: function(responseText) {
-				toastr.error(responseText);
+			error: function(errorMessage) {
+				toastr.error(errorMessage);
 			}
 		})
 	}
@@ -110,7 +110,7 @@ function show(a) {
 }
 /**
  *This method is used to show the hidden input box
- */
+*/
 function display(a) {
 	let textBox = document.getElementById("display-" + a);
 	if (textBox.style.display === "none") {
@@ -166,7 +166,7 @@ function getAllProducts() {
 						"</td>" +
 						"<td>" +
 						"<div id='display-" + product.productId + "' style='display:none'>" +
-						"<input type='number' id='pquantity" + product.productId + "' min = 1 max=" + product.quantity + " data-product-quantity=" + product.quantity + " data-product-name= " + product.productName + " placeholder='Enter qunatity'/>" +
+						"<input type='number' id='pquantity" + product.productId + "' min = 1 max=" + product.quantity + " data-product-quantity=" + product.quantity + " data-product-name= " + product.productName + "/>" +
 						"</div>" +
 						"</td>";
 				}
