@@ -144,7 +144,7 @@ function getAllProducts() {
 		let products = res;
 		let content = "";
 		for (let product of products) {
-			if (role == null && product.quantity > 0) {
+			if (role.trim() === "" && product.quantity > 0) {
 
 				content += table_view(product);
 			}

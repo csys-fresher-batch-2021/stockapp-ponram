@@ -17,7 +17,12 @@
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 	<dependencies>
-
+	<!-- https://mvnrepository.com/artifact/jstl/jstl -->
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+			<version>1.2.6</version>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -48,7 +53,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>app</finalName>
+		<finalName>StockManagement</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
