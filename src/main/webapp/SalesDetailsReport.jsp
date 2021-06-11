@@ -2,6 +2,7 @@
 <%@page import="in.ponram.service.ProductManager"%>
 <%@page import="in.ponram.model.Product"%>
 <%@page import="java.util.List"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -13,15 +14,14 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 </head>
 <body>
-	<%
-String value = request.getParameter("productId");
-%>
+
+<c:set var="productId" value="${param.productId}"/>
 	<div id="message" style="color: green;"></div>
 	<jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
 		<h3>Sales Details</h3>
 		<h2 class="badge badge-success">Total sales:-<span id = "total-sales"></span></h2>
-		<h2 class="badge badge-success">Total Sold quantity:-<span id = "total-sales-quantity"></span></h2>
+		<h2 class="badge badge-success">Total Soled quantity:-<span id = "total-sales-quantity"></span></h2>
 		<h2 class="badge badge-info">Total Soled prize&#8377;:-<span id = "total-sale-samount"></span></h2>
 		<table class="table	table-bordered" id="list">
 			<caption>List all sales details</caption>
@@ -33,7 +33,7 @@ String value = request.getParameter("productId");
 					<th scope="col">Product Name</th>
 					<th scope="col">Prize&#8377;</th>
 					<th scope="col">Purchased Quantity</th>
-					<th scope="col">Total Amount&#8377;</th>
+					<th scope="col">Total Amount</th>
 					<th scope="col">Purchased Date</th>
 				</tr>
 			</thead>
@@ -43,7 +43,7 @@ String value = request.getParameter("productId");
 		<script>
 		function getSalesDetails() {
 
-			let url = "PurchaseDetailReport?productId="+<%= value %>;
+			let url = "PurchaseDetailReport?productId="+${productId};
 			let totalsales = 0;
 			let totalSalesQuantity = 0;
 			let totalSalesAmount = 0;
