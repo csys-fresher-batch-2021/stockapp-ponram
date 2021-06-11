@@ -12,11 +12,11 @@ import in.ponram.util.ConnectionUtil;
 
 public class OrdarDAO {
 
-	Connection connection = null;
-	PreparedStatement pst = null;
-	ResultSet rs = null;
 	public int save(Order order) {
 		
+		Connection connection = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		int val = 0;
 		String sql = "INSERT INTO orders (user_name,purchase_date) values(?,?)";
 		try {
@@ -25,7 +25,7 @@ public class OrdarDAO {
 			pst.setString(1,order.getCustomerName());
 			pst.setDate(2,Date.valueOf(order.getPurchaseDate()));
 			pst.executeUpdate();
-			ResultSet rs=pst.getGeneratedKeys();
+			rs=pst.getGeneratedKeys();
 			if(rs.next()){
 				val = rs.getInt(1);
 				   
@@ -45,6 +45,9 @@ public class OrdarDAO {
 	 */
 	public void updateBillAmount(int billId, int total) {
 		
+		Connection connection = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		String sql = "UPDATE orders SET total_bill_amount = ? WHERE bill_id = ?;";
 		try {
 

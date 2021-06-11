@@ -1,4 +1,3 @@
-
 /**
  *This method use the used display the message for success or error message
  */
@@ -133,48 +132,88 @@ function table_view(product) {
 		"<td>" + product.quantity + "</td>";
 	return value;
 }
+
+function getUrl(role) {
+	let url;
+	if (role === 'admin') {
+		let input = document.getElementById("quantityFilter").value;
+		if (input.trim() !== "") {
+			if (isValidateQuantity(input)) {
+
+				url = "LeastQuantityServlet?quantity=" + input;
+			}
+
+		}
+		else {
+			url = "ListProductServlet"
+		}
+	}
+	else {
+		url = "ListProductServlet"
+	}
+
+	return url;
+}
 /**
  *This method use the used receive plane text response and convert it into json value then display it in table
  */
 function getAllProducts() {
 
 	let role = sessionStorage.getItem("USER_ROLE");
-	let url = "ListProductServlet";
-	fetch(url).then(res => res.json()).then(res => {
-		let products = res;
-		let content = "";
-		for (let product of products) {
-			if (role.trim() === "" && product.quantity > 0) {
-
-				content += table_view(product);
-			}
-			if (role != null) {
-				if (role.toLowerCase().localeCompare('admin') == 0) {
-					content += table_view(product) + "<td>" +
-						"<a class='btn btn-success' id='clickhere" + product.productId + "' onclick='show(" + product.productId + ")'>Click here</a>" +
-						"<div id='show-" + product.productId + "' style='display:none'>" +
-						"<input type='number' id='quantity" + product.productId + "' data-product-name= " + product.productName + " placeholder='Enter qunatity'/> &nbsp;" +
-						"<a id='check' onclick=send(" + product.productId + ") class='btn btn-success'>Add</a>&nbsp;" +
-						"<a id='check' onclick=show(" + product.productId + ") class='btn btn-danger'>Cancel</a>&nbsp;" +
-						"</div>" +
-						"</td>" +
-						"<td><a href='RemoveProductServlet?itemName=" + product.productName + "' class='btn btn-danger'>Remove</a></td>";
-				}
-				if (role.toLowerCase().localeCompare('user') == 0 && product.quantity > 0) {
-					content += table_view(product) + "<td>" +
-						"<input type='checkbox' id='products' data-product-id=" + product.productId + " onclick='display(" + product.productId + ")'/>" +
-						"</td>" +
-						"<td>" +
-						"<div id='display-" + product.productId + "' style='display:none'>" +
-						"<input type='number' id='pquantity" + product.productId + "' min = 1 max=" + product.quantity + " data-product-quantity=" + product.quantity + " data-product-name= " + product.productName + "/>" +
-						"</div>" +
-						"</td>";
-				}
-			}
-
-			content += "</tr>";
+	fetch(getUrl(role)).then(res => res.json()).then(res => {
+		if (message.errorMessagemessage != null) {
+			toastr.error(message.errorMessage);
+		} else {
+			displayFunction(res, role);
 		}
-		document.querySelector("#listProduct-tbl").innerHTML = content;
 	})
 }
 getAllProducts();
+
+function displayFunction(res, role) {
+	let products = res;
+	let content = "";
+	console.log();
+	if (products.length == 0) {
+
+		content += "<h1>No Records found</h1>";
+	} else {
+		content = displayRowFunction(products, role, content);
+	}
+	document.querySelector("#listProduct-tbl").innerHTML = content;
+}
+
+function displayRowFunction(products, role, content) {
+	for (let product of products) {
+		if (role.trim() === "" && product.quantity > 0) {
+
+			content += table_view(product);
+		}
+		if (role != null) {
+			if (role.toLowerCase().localeCompare('admin') == 0) {
+				content += table_view(product) + "<td>" +
+					"<a class='btn btn-success' id='clickhere" + product.productId + "' onclick='show(" + product.productId + ")'>Click here</a>" +
+					"<div id='show-" + product.productId + "' style='display:none'>" +
+					"<input type='number' id='quantity" + product.productId + "' data-product-name= " + product.productName + " placeholder='Enter qunatity'/> &nbsp;" +
+					"<a id='check' onclick=send(" + product.productId + ") class='btn btn-success'>Add</a>&nbsp;" +
+					"<a id='check' onclick=show(" + product.productId + ") class='btn btn-danger'>Cancel</a>&nbsp;" +
+					"</div>" +
+					"</td>" +
+					"<td><a href='RemoveProductServlet?itemName=" + product.productName + "' class='btn btn-danger'>Remove</a></td>";
+			}
+			if (role.toLowerCase().localeCompare('user') == 0 && product.quantity > 0) {
+				content += table_view(product) + "<td>" +
+					"<input type='checkbox' id='products' data-product-id=" + product.productId + " onclick='display(" + product.productId + ")'/>" +
+					"</td>" +
+					"<td>" +
+					"<div id='display-" + product.productId + "' style='display:none'>" +
+					"<input type='number' id='pquantity" + product.productId + "' min = 1 max=" + product.quantity + " data-product-quantity=" + product.quantity + " data-product-name= " + product.productName + "/>" +
+					"</div>" +
+					"</td>";
+			}
+		}
+
+		content += "</tr>";
+	}
+	return content;
+}

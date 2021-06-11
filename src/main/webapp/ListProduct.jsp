@@ -17,14 +17,17 @@
 		<h3>List of stock</h3>
 
 		<div class="row">
+		<h3>Filter</h3>
 			<div class="col-md-6">
-				<label>Filter:</label> <input type="text" class="brandFilter"
-					id="brandfilter" onkeyup="filter_brand()" placeholder="Brand name">
-			</div>
-			<div class="col-md-6 text-right ">
+				<label>brand name:</label> <input type="text" class="brandFilter"
+					id="brandfilter" onkeyup="filter_brand()" placeholder="Brand name"/>
 				<c:if test="${fn:containsIgnoreCase(role, 'user')}">
-				<button class="btn btn-primary" onclick="store()">Place
-					order</button>
+				<button class="btn btn-primary" onclick="store()">Place order</button>
+				</c:if>
+				<c:if test="${fn:containsIgnoreCase(role, 'admin')}">
+				<label>Quantity:</label> <input type="number" class="quantityFilter"
+					id="quantityFilter"/>	
+				<button class="btn btn-primary" onclick="getAllProducts()">Check</button>
 				</c:if>
 			</div>
 		</div>

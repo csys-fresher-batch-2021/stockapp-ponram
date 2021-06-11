@@ -11,10 +11,6 @@ import in.ponram.util.ConnectionUtil;
 
 public class UserDAO {
 
-	Connection connection = null;
-	PreparedStatement pst = null;
-	ResultSet rs = null;
-
 	/**
 	 * This method is used to add registered user in the list
 	 * 
@@ -22,6 +18,9 @@ public class UserDAO {
 	 */
 	public void save(User user) {
 
+		Connection connection = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		String sql = "insert into user_details(user_name,mobile_number,gender,address,email,admin_user,user_password ) values ( ?,?,?,?,?,?,?)";
 		try {
 
@@ -50,6 +49,9 @@ public class UserDAO {
 	 */
 	public User findUser(String name) {
 		
+		Connection connection = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		User user = new User();
 		String sql = "SELECT user_name,admin_user,user_password FROM user_details where user_name = ?;";
 		try {

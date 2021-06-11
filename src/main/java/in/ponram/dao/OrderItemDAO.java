@@ -11,11 +11,11 @@ import in.ponram.util.ConnectionUtil;
 
 public class OrderItemDAO {
 
-	Connection connection = null;
-	PreparedStatement pst = null;
-	ResultSet rs = null;
 	public void save(OrderItem orderItem) {
 		
+		Connection connection = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		String sql = "INSERT INTO order_item (bill_id,product_id,product_quantity,total_amount) values(?,?,?,?)";
 		try {
 			connection = ConnectionUtil.createConnection();
