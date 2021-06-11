@@ -3,7 +3,7 @@
  */
 function filter_brand() {
 	let input, inputFilter, table, row, data, i, txtValue;
-	input = document.getElementById("filter");
+	input = document.getElementById("brandfilter");
 	inputFilter = input.value.toUpperCase();
 	table = document.getElementById("list");
 	row = table.getElementsByTagName("tr");

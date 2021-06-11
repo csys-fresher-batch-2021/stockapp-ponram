@@ -14,11 +14,6 @@ import in.ponram.model.Product;
 import in.ponram.util.ConnectionUtil;
 
 public class ProductDAO {
-
-	Connection connection = null;
-	PreparedStatement pst = null;
-	ResultSet rs = null;
-
 	/**
 	 * This method is used to add the product in the Database
 	 * 
@@ -27,7 +22,9 @@ public class ProductDAO {
 	 */
 	public void save(Product product){
 
-
+		Connection connection = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		String sql = "INSERT INTO stock(brand_name,product_name,product_category,arrival_date,initial_quantity,available_quantity,rate ) values ( ?,?,?,?,?,?,? )";
 		try {
 
@@ -43,7 +40,7 @@ public class ProductDAO {
 			pst.executeUpdate();
 		} catch (SQLException e) {
 
-			throw new DBException("Product already exists");
+			throw new DBException("Product can't be added");
 		} finally {
 
 			ConnectionUtil.closeConnection(rs,pst, connection);
@@ -57,7 +54,10 @@ public class ProductDAO {
 	 * @return product ArrayList
 	 */
 	public List<Product> findAll() {
-
+		
+		Connection connection = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		List<Product> productList = new ArrayList<>();
 
 		try {
@@ -66,22 +66,13 @@ public class ProductDAO {
 			connection = ConnectionUtil.createConnection();
 
 			// Step 2: Query
-			String sql = "SELECT product_id,brand_name,product_name,product_category,arrival_date,available_quantity,rate  FROM stock WHERE active = true";
+			String sql = "SELECT product_id,brand_name,product_name,product_category,arrival_date,available_quantity,rate  FROM stock WHERE active = true ORDER BY product_id ASC";
 			pst = connection.prepareStatement(sql);
 			// Step 3: execute query
 
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				int id = rs.getInt("product_id");
-				String brandName = rs.getString("brand_name");
-				String productName = rs.getString("product_name");
-				String productCategory = rs.getString("product_category");
-				LocalDate arrivalDate = (rs.getDate("arrival_date")).toLocalDate();
-				int quantity = rs.getInt("available_quantity");
-				int rate = rs.getInt("rate");
-
-				// Store the data in model
-				Product product = new Product(id, brandName, productName, productCategory, arrivalDate, quantity, rate);
+				Product product = toRow(rs);
 				// Store all products in list
 				productList.add(product);
 
@@ -89,7 +80,40 @@ public class ProductDAO {
 
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			throw new DBException("Unable to fetch products");
+		} finally {
+			
+			ConnectionUtil.closeConnection(rs, pst, connection);
+		}
+		return productList;
+	}
+	
+	/**
+	 * This method is used to get all the product by quantity from database
+	 * 
+	 * @return product ArrayList
+	 */
+	public List<Product> findByQuantity(int quantity) {
+
+		Connection connection = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		List<Product> productList = new ArrayList<>();
+		String sql = "SELECT product_id,brand_name,product_name,product_category,arrival_date,available_quantity,rate  FROM stock WHERE active = true AND available_quantity<= ? ORDER BY product_id ASC";
+		try {
+			// Step 1: Get the connection
+			connection = ConnectionUtil.createConnection();
+			pst = connection.prepareStatement(sql);
+			pst.setInt(1, quantity);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				Product product = toRow(rs);
+				productList.add(product);
+
+			}
+
+		} catch (SQLException e) {
+			
 			throw new DBException("Unable to fetch products");
 		} finally {
 			
@@ -98,13 +122,26 @@ public class ProductDAO {
 		return productList;
 	}
 
+	public Product toRow(ResultSet rs) throws SQLException {
+		int id = rs.getInt("product_id");
+		String brandName = rs.getString("brand_name");
+		String productName = rs.getString("product_name");
+		String productCategory = rs.getString("product_category");
+		LocalDate arrivalDate = (rs.getDate("arrival_date")).toLocalDate();
+		int quantity = rs.getInt("available_quantity");
+		int rate = rs.getInt("rate");
 
+		return new Product(id, brandName, productName, productCategory, arrivalDate, quantity, rate);
+	}
 
 	/**
 	 * This method is used to remove the product from the database
 	 */
 	public void remove(String product) {
 		
+		Connection connection = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		String sql = "UPDATE stock SET active = false WHERE product_name = ?;";
 		try {
 
@@ -128,6 +165,9 @@ public class ProductDAO {
 	 */
 	public void updateAddQuantity(int id, int quantity) {
 		
+		Connection connection = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		String sql = "update stock set initial_quantity = initial_quantity + ?, available_quantity = available_quantity + ? where product_id = ?";
 		try {
 			
@@ -153,6 +193,9 @@ public class ProductDAO {
 	 */
 	public void updateReduceQuantity(int id, int quantity) {
 		
+		Connection connection = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		String sql = "update stock set available_quantity = available_quantity - ? where product_id = ?";
 		try {
 			

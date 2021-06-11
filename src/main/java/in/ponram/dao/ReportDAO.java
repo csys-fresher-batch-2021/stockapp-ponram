@@ -15,10 +15,6 @@ import in.ponram.model.Product;
 import in.ponram.util.ConnectionUtil;
 
 public class ReportDAO {
-
-	 Connection connection = null;
-	 PreparedStatement pst = null;
-	 ResultSet rs = null;
 	
 	/**
 	 * This method is used to get all the product from database
@@ -27,6 +23,9 @@ public class ReportDAO {
 	 */
 	public List<Product> findAll() {
 
+		Connection connection = null;
+		 PreparedStatement pst = null;
+		 ResultSet rs = null;
 		List<Product> productList = new ArrayList<>();
 
 		try {
@@ -35,7 +34,7 @@ public class ReportDAO {
 			connection = ConnectionUtil.createConnection();
 
 			// Step 2: Query
-			String sql = "SELECT product_id,brand_name,product_name,product_category,arrival_date,initial_quantity,available_quantity,rate,active  FROM stock";
+			String sql = "SELECT product_id,brand_name,product_name,product_category,arrival_date,initial_quantity,available_quantity,rate,active  FROM stock ORDER BY product_id ASC";
 			pst = connection.prepareStatement(sql);
 			// Step 3: execute query
 			rs = pst.executeQuery();
@@ -71,6 +70,9 @@ public class ReportDAO {
 	 */
 	public List<Order> findStockByProductId(int id) {
 		
+		Connection connection = null;
+		 PreparedStatement pst = null;
+		 ResultSet rs = null;
 		List<Order> reportList = new ArrayList<>();
 		String sql = "select o.bill_id as billId,o.user_name as userName,s.brand_name as brandName,s.product_name as productName,s.rate as rate,it.product_quantity as quantity,it.total_amount as totalAmount,o.purchase_date as purchaseDate from orders o, order_item it, stock s where o.bill_id = it.bill_id and it.product_id = s.product_id and it.product_id = ?";
 		try {

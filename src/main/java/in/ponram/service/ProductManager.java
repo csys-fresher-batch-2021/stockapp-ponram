@@ -33,6 +33,11 @@ public class ProductManager {
 		
 		return productDao.findAll();
 	}
+	
+	public List<Product> getStockByQuantity(int quantity) {
+
+		return productDao.findByQuantity(quantity);
+	}
 	/**
 	 * This method is used to add the product in the ArrayList
 	 * 
